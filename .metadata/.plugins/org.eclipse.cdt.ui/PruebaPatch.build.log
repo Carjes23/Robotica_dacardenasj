@@ -1,0 +1,49 @@
+10:49:09 **** Incremental Build of configuration Debug for project PruebaPatch ****
+make -j8 all 
+arm-none-eabi-gcc "../SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_GCC.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F411RE -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I../Inc -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Core/Include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_GCC.d" -MT"SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_GCC.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_GCC.o"
+arm-none-eabi-gcc "../SEGGER/SEGGER/SEGGER_RTT.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F411RE -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I../Inc -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Core/Include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"SEGGER/SEGGER/SEGGER_RTT.d" -MT"SEGGER/SEGGER/SEGGER_RTT.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "SEGGER/SEGGER/SEGGER_RTT.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"SEGGER/SEGGER/SEGGER_RTT_ASM_ARMv7M.d" -MT"SEGGER/SEGGER/SEGGER_RTT_ASM_ARMv7M.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "SEGGER/SEGGER/SEGGER_RTT_ASM_ARMv7M.o" "../SEGGER/SEGGER/SEGGER_RTT_ASM_ARMv7M.S"
+arm-none-eabi-gcc "../SEGGER/SEGGER/SEGGER_RTT_printf.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F411RE -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I../Inc -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Core/Include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"SEGGER/SEGGER/SEGGER_RTT_printf.d" -MT"SEGGER/SEGGER/SEGGER_RTT_printf.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "SEGGER/SEGGER/SEGGER_RTT_printf.o"
+arm-none-eabi-gcc "../SEGGER/SEGGER/SEGGER_SYSVIEW.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F411RE -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I../Inc -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Core/Include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"SEGGER/SEGGER/SEGGER_SYSVIEW.d" -MT"SEGGER/SEGGER/SEGGER_SYSVIEW.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "SEGGER/SEGGER/SEGGER_SYSVIEW.o"
+arm-none-eabi-gcc "../SEGGER/OS/SEGGER_SYSVIEW_FreeRTOS.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F411RE -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I../Inc -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Core/Include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"SEGGER/OS/SEGGER_SYSVIEW_FreeRTOS.d" -MT"SEGGER/OS/SEGGER_SYSVIEW_FreeRTOS.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "SEGGER/OS/SEGGER_SYSVIEW_FreeRTOS.o"
+In file included from ../SEGGER/SEGGER/SEGGER_RTT_ASM_ARMv7M.S:18:
+../SEGGER/SEGGER/SEGGER_RTT.h:60:10: fatal error: SEGGER_RTT_Conf.h: No such file or directory
+   60 | #include "SEGGER_RTT_Conf.h"
+      |          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from ../SEGGER/SEGGER/SEGGER_RTT.c:76:
+../SEGGER/SEGGER/SEGGER_RTT.h:60:10: fatal error: SEGGER_RTT_Conf.h: No such file or directory
+   60 | #include "SEGGER_RTT_Conf.h"
+      |          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from ../SEGGER/SEGGER/SEGGER_RTT_printf.c:54:
+../SEGGER/SEGGER/SEGGER_RTT.h:60:10: fatal error: SEGGER_RTT_Conf.h: No such file or directory
+   60 | #include "SEGGER_RTT_Conf.h"
+      |          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [SEGGER/SEGGER/subdir.mk:32: SEGGER/SEGGER/SEGGER_RTT.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [SEGGER/SEGGER/subdir.mk:32: SEGGER/SEGGER/SEGGER_RTT_printf.o] Error 1
+make: *** [SEGGER/SEGGER/subdir.mk:34: SEGGER/SEGGER/SEGGER_RTT_ASM_ARMv7M.o] Error 1
+../SEGGER/OS/SEGGER_SYSVIEW_FreeRTOS.c:56:10: fatal error: SEGGER_SYSVIEW.h: No such file or directory
+   56 | #include "SEGGER_SYSVIEW.h"
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [SEGGER/OS/subdir.mk:19: SEGGER/OS/SEGGER_SYSVIEW_FreeRTOS.o] Error 1
+In file included from ../SEGGER/SEGGER/SEGGER_SYSVIEW.h:64,
+                 from ../SEGGER/SEGGER/SEGGER_SYSVIEW_Int.h:64,
+                 from ../SEGGER/SEGGER/SEGGER_SYSVIEW.c:146:
+../SEGGER/SEGGER/SEGGER.h:59:10: fatal error: Global.h: No such file or directory
+   59 | #include "Global.h"         // Type definitions: U8, U16, U32, I8, I16, I32
+      |          ^~~~~~~~~~
+compilation terminated.
+make: *** [SEGGER/SEGGER/subdir.mk:32: SEGGER/SEGGER/SEGGER_SYSVIEW.o] Error 1
+../SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_GCC.c:59:10: fatal error: SEGGER_RTT.h: No such file or directory
+   59 | #include "SEGGER_RTT.h"
+      |          ^~~~~~~~~~~~~~
+compilation terminated.
+make: *** [SEGGER/SEGGER/Syscalls/subdir.mk:28: SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_GCC.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+10:49:10 Build Failed. 13 errors, 0 warnings. (took 900ms)
+

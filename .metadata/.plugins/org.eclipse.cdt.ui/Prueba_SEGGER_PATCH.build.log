@@ -1,0 +1,10 @@
+11:49:28 **** Incremental Build of configuration Debug for project Prueba_SEGGER_PATCH ****
+make -j8 all 
+arm-none-eabi-size   Prueba_SEGGER_PATCH.elf 
+   text	   data	    bss	    dec	    hex	filename
+  31952	    128	  81568	 113648	  1bbf0	Prueba_SEGGER_PATCH.elf
+Finished building: default.size.stdout
+ 
+
+11:49:29 Build Finished. 0 errors, 0 warnings. (took 826ms)
+

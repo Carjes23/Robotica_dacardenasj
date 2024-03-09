@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="PreviewPatchPage">
+		<item key="expandPatchOptions" value="true"/>
+		<item key="generateRejects" value="false"/>
+	</section>
+	<section name="PatchWizard">
+		<item key="PatchWizardPage1.INPUT_METHOD" value="2"/>
+		<item key="PatchWizardPage1.PATCH_FILES" value="/home/daniel/Robotica/RTOS_workspace/PruebaPatch/SEGGER/PATCH/changes.patch"/>
+		<item key="PatchWizardPage1.WORKSPACE_PATH" value=""/>
+		<item key="DIALOG_X_ORIGIN" value="581"/>
+		<item key="DIALOG_Y_ORIGIN" value="32"/>
+		<item key="DIALOG_WIDTH" value="765"/>
+		<item key="DIALOG_HEIGHT" value="739"/>
+		<item key="DIALOG_FONT_NAME" value="1|Noto Sans|10.0|0|GTK|1|"/>
+		<list key="PatchWizardPage1.PATCH_FILES">
+			<item value="/home/daniel/Robotica/RTOS_workspace/PruebaPatch/SEGGER/PATCH/changes.patch"/>
+		</list>
+		<list key="PatchWizardPage1.PATCH_URLS">
+			<item value=""/>
+		</list>
+	</section>
+</section>

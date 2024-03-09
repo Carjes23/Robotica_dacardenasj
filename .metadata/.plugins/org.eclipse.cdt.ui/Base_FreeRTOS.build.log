@@ -1,0 +1,16 @@
+08:51:16 **** Incremental Build of configuration Debug for project Base_FreeRTOS ****
+make -j8 all 
+arm-none-eabi-gcc -o "Base_FreeRTOS.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Base_FreeRTOS.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Base_FreeRTOS.elf
+ 
+arm-none-eabi-size   Base_FreeRTOS.elf 
+arm-none-eabi-objdump -h -S  Base_FreeRTOS.elf  > "Base_FreeRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  19160	    120	  79048	  98328	  18018	Base_FreeRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: Base_FreeRTOS.list
+ 
+
+08:51:17 Build Finished. 0 errors, 0 warnings. (took 830ms)
+
