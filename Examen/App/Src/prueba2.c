@@ -25,6 +25,8 @@
 #include "PLLDriver.h"
 #include "string.h"
 #include "PwmDriver.h"
+#include <math.h>
+
 //pc7
 
 #include "ExtiDriver.h"
@@ -34,18 +36,25 @@ void parseCommands(char *ptrBufferReception);
 
 //Handler para el control de la terminal
 USART_Handler_t handlerTerminal = { 0 };
+USART_Handler_t handlerConexion = { 0 };
 //Para la recepcion de datos por la terminal
 uint8_t rxData = 0;
+uint8_t rxData2 = 0;
 uint16_t adcLastData = 0;
+uint16_t countTimer = 0;
+
+uint64_t counterTimer2 = 0;
+uint64_t lastBlue = 0;
+uint64_t lastYlw = 0;
 
 uint16_t counterReception = 0;
 
-char bufferReception[64] = { 0 };
+char bufferReception[20] = { 0 };
 char cmd[64] = { 0 };
-char bufferData[10] = { 0 };
-unsigned int firstParameter = 256;
-unsigned int secondParameter = 256;
-unsigned int thirdParameter = 256;
+char bufferData[250] = { 0 };
+unsigned int firstParameter = 0;
+unsigned int secondParameter = 0;
+unsigned int thirdParameter = 0;
 
 bool stringComplete = 0;
 bool printData = 0;
@@ -53,12 +62,14 @@ GPIO_Handler_t tx2pin = { 0 };	//Pin para configurar la trasmision del USART2
 GPIO_Handler_t rx2pin = { 0 };	//Pin para configurar la recepcion del USART2
 
 #define STACK_SIZE 200;
-
+#define start 0
+float start2 = 99.0f;
 void vTaskOne(void *pvParameters);
 void vTaskTwo(void *pvParameters);
 void configPeripherals(void);
 void taskCreation(void);
-
+double getAverage(int arr[], int size);
+#define sizeArrays (40*4) -1
 GPIO_Handler_t ledUsuario;
 GPIO_Handler_t pwprueba;
 
@@ -68,9 +79,12 @@ uint8_t globalCounter = 0;
 uint32_t SystemCoreClock = 16E6;
 
 BasicTimer_Handler_t handlerTimer3;
+BasicTimer_Handler_t handlerTimer2;
 
-PWM_Handler_t pwmadc = { 0 }; //Para configurar el PWM en el timer 3 para X
-PWM_Handler_t pwmprueba = { 0 }; //Para configurar el PWM en el timer 3 para X
+PWM_Handler_t pwmBlue = { 0 }; //Para configurar el PWM en el timer 3 para X
+bool dirYellowVal = 1;
+PWM_Handler_t pwmYellow = { 0 }; //Para configurar el PWM en el timer 3 para X
+bool dirBlueVal = 0;
 
 //Funcion para cuadrar el ADC
 ADC_Config_t channnel_0 = { 0 };
@@ -79,19 +93,60 @@ GPIO_Handler_t PC7;
 EXTI_Config_t PC7E;
 int PC7Counter = 0;
 
-GPIO_Handler_t PC1;
-EXTI_Config_t PC1E;
-int PC1Counter = 0;
+GPIO_Handler_t counterYellow;
+EXTI_Config_t counterYellowE;
+int counterBlueCounter = 0;
+int counterBlueCounterT = 0;
+int counterBlueCounterL[sizeArrays] = { 0 };
+double printcounterBlue = 0;
+uint16_t timeBlue = 0;
 
-GPIO_Handler_t PC3;
-EXTI_Config_t PC3E;
-int PC3Counter = 0;
+int lastValBlue;
+int lastValYwl;
+
+GPIO_Handler_t counterYwl;
+EXTI_Config_t counterYwlE;
+int counterYwlCounter = 0;
+int counterYwlCounterT = 0;
+int counterYwlCounterL[sizeArrays] = { 0 };
+double printcounterYwl = 0;
+uint16_t timeYwl = 0;
 
 GPIO_Handler_t PC0;
 EXTI_Config_t PC0E;
 int PC0Counter = 0;
 
+uint16_t prescaler = 400;
+uint16_t periodo = 10000;
+#define duttyInBlue 3500//250  //350
+#define duttyIYwl  3410//264//364
+uint16_t duttyBlue = start;
+uint16_t duttyYwl = start;
+uint16_t distancia = 300;
+
+bool upMode = 0;
+
+GPIO_Handler_t dirPinYw;
+GPIO_Handler_t dirPinBlue;
+
+bool dir = 0;
+bool moves = 0;
+bool move90 = 0;
+
+float recorridoBlue;
+float recorridoYellow;
+
+// Assuming these are global variables representing the robot's current state
+double x = 0.0, y = 0.0, theta = 0.0; // Position (x, y) and orientation theta
+float wheelbase = 11.0; // Distance between wheels
+uint16_t counter10seg = 0;
+float wheelsize = 5.7;
+float rotate = M_PI / 2;
+
+void updatePosition(void);
+
 int main(void) {
+	//yellow 0, blue 1
 
 	configPeripherals();
 
@@ -99,13 +154,14 @@ int main(void) {
 	while (1) {
 		/* SI llegamos es que algo salio mal... */
 		/* El caracter '@' nos indica que es el final de la cadena*/
-		if (rxData != '\0') {
-			bufferReception[counterReception] = rxData;
+		if (rxData2 != '\0') {
+//			writeChar(&handlerConexion, rxData2);
+			bufferReception[counterReception] = rxData2;
 			counterReception++;
 
 			// If the incoming character is a newline, set a flag
 			// so the main loop can do something about it
-			if (rxData == '@') {
+			if (rxData2 == '@') {
 				stringComplete = 1;
 				sprintf(bufferData, "\n");
 				writeString(&handlerTerminal, bufferData);
@@ -113,18 +169,24 @@ int main(void) {
 				bufferReception[counterReception] = '\0';
 				counterReception = 0;
 			}
-			if (rxData == '\b') {
+			if (rxData2 == '\b') {
 				counterReception--;
 				counterReception--;
 			}
 			//Para que no vuelva entrar. Solo cambia debido a la interrupcion
-			rxData = '\0';
+			rxData2 = '\0';
 		}
 
 		//Hacemos un analisis de la cadena de datos obtenida
 		if (stringComplete) {
 			parseCommands(bufferReception);
+			writeChar(&handlerConexion, '\n');
 			stringComplete = 0;
+			for (int i = 0;
+					i < sizeof(bufferReception) / sizeof(bufferReception[0]);
+					i++) {
+				bufferReception[i] = 0;
+			}
 		}
 	}
 }
@@ -136,18 +198,22 @@ void configPeripherals(void) {
 
 	configPLL(100);
 
-	ledUsuario.pGPIOx = GPIOA;
+	ledUsuario.pGPIOx = GPIOC;
 	ledUsuario.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_OUT;
 	ledUsuario.GPIO_PinConfig_t.GPIO_PinNumber = PIN_5;
 	GPIO_Config(&ledUsuario);
 
-	handlerTimer3.ptrTIMx = TIM3; //El timer que se va a usar
-	handlerTimer3.TIMx_Config.TIMx_interruptEnable = 1; //Se habilitan las interrupciones
-	handlerTimer3.TIMx_Config.TIMx_mode = BTIMER_MODE_UP; //Se usara en modo ascendente
-	handlerTimer3.TIMx_Config.TIMx_period = 2500; //Se define el periodo en este caso el led cambiara cada 250ms
-	handlerTimer3.TIMx_Config.TIMx_speed = BTIMER_SPEED_100us; //Se define la "velocidad" que se usara
+	dirPinYw.pGPIOx = GPIOD;
+	dirPinYw.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_OUT;
+	dirPinYw.GPIO_PinConfig_t.GPIO_PinNumber = PIN_2;
+	GPIO_Config(&dirPinYw);
+	GPIO_WritePin(&dirPinYw, dirYellowVal);
 
-	BasicTimer_Config(&handlerTimer3); //Se carga la configuración.
+	dirPinBlue.pGPIOx = GPIOC;
+	dirPinBlue.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_OUT;
+	dirPinBlue.GPIO_PinConfig_t.GPIO_PinNumber = PIN_12;
+	GPIO_Config(&dirPinBlue);
+	GPIO_WritePin(&dirPinBlue, dirBlueVal);
 
 	//Pines necesarios para el uso del USART2
 	tx2pin.pGPIOx = GPIOA;
@@ -178,6 +244,34 @@ void configPeripherals(void) {
 
 	USART_Config(&handlerTerminal);
 
+	tx2pin.pGPIOx = GPIOA;
+	tx2pin.GPIO_PinConfig_t.GPIO_PinNumber = PIN_9;
+	tx2pin.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_ALTFN;
+	tx2pin.GPIO_PinConfig_t.GPIO_PinPuPdControl = GPIO_PUPDR_PULLUP;
+	tx2pin.GPIO_PinConfig_t.GPIO_PinSpeed = GPIO_OSPEED_FAST; //Se usa en velocidad rapida
+	tx2pin.GPIO_PinConfig_t.GPIO_PinAltFunMode = 7;
+
+	GPIO_Config(&tx2pin);
+
+	rx2pin.pGPIOx = GPIOA;
+	rx2pin.GPIO_PinConfig_t.GPIO_PinNumber = PIN_10;
+	rx2pin.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_ALTFN;
+	rx2pin.GPIO_PinConfig_t.GPIO_PinPuPdControl = GPIO_PUPDR_PULLUP;
+	rx2pin.GPIO_PinConfig_t.GPIO_PinSpeed = GPIO_OSPEED_FAST;
+	rx2pin.GPIO_PinConfig_t.GPIO_PinAltFunMode = 7;
+
+	GPIO_Config(&rx2pin);
+
+	handlerConexion.ptrUSARTx = USART1;
+	handlerConexion.USART_Config.USART_baudrate = 19200;
+	handlerConexion.USART_Config.USART_datasize = USART_DATASIZE_8BIT;
+	handlerConexion.USART_Config.USART_mode = USART_MODE_RXTX;
+	handlerConexion.USART_Config.USART_parity = USART_PARITY_NONE;
+	handlerConexion.USART_Config.USART_stopbits = USART_STOPBIT_1;
+	handlerConexion.USART_Config.USART_RX_Int_Ena = ENABLE;
+
+	USART_Config(&handlerConexion);
+
 	PC7.pGPIOx = GPIOC;
 	PC7.GPIO_PinConfig_t.GPIO_PinNumber = PIN_7;
 	PC7.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_IN;
@@ -187,23 +281,23 @@ void configPeripherals(void) {
 
 	extInt_Config(&PC7E);
 
-	PC1.pGPIOx = GPIOC;
-	PC1.GPIO_PinConfig_t.GPIO_PinNumber = PIN_1;
-	PC1.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_IN;
+	counterYellow.pGPIOx = GPIOC;
+	counterYellow.GPIO_PinConfig_t.GPIO_PinNumber = PIN_1;
+	counterYellow.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_IN;
 
-	PC1E.pGPIOHandler = &PC1;
-	PC1E.edgeType = EXTERNAL_INTERRUPT_FALLING_EDGE;
+	counterYellowE.pGPIOHandler = &counterYellow;
+	counterYellowE.edgeType = EXTERNAL_INTERRUPT_FALLING_EDGE;
 
-	extInt_Config(&PC1E);
+	extInt_Config(&counterYellowE);
 
-	PC3.pGPIOx = GPIOC;
-	PC3.GPIO_PinConfig_t.GPIO_PinNumber = PIN_3;
-	PC3.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_IN;
+	counterYwl.pGPIOx = GPIOC;
+	counterYwl.GPIO_PinConfig_t.GPIO_PinNumber = PIN_3;
+	counterYwl.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_IN;
 
-	PC3E.pGPIOHandler = &PC3;
-	PC3E.edgeType = EXTERNAL_INTERRUPT_FALLING_EDGE;
+	counterYwlE.pGPIOHandler = &counterYwl;
+	counterYwlE.edgeType = EXTERNAL_INTERRUPT_FALLING_EDGE;
 
-	extInt_Config(&PC3E);
+	extInt_Config(&counterYwlE);
 
 	PC0.pGPIOx = GPIOC;
 	PC0.GPIO_PinConfig_t.GPIO_PinNumber = PIN_0;
@@ -234,41 +328,44 @@ void configPeripherals(void) {
 
 	GPIO_Config(&pwprueba);
 
-	pwmprueba.ptrTIMx = TIM5;
-	pwmprueba.config.channel = PWM_CHANNEL_2;
-	pwmprueba.config.duttyCicle = 100;
-	pwmprueba.config.periodo = 500;
-	pwmprueba.config.prescaler = 1000;
-	pwmprueba.config.polarity = 1;
+	pwmYellow.ptrTIMx = TIM5;
+	pwmYellow.config.channel = PWM_CHANNEL_2;
+	pwmYellow.config.duttyCicle = duttyYwl;
+	pwmYellow.config.periodo = periodo;
+	pwmYellow.config.prescaler = prescaler;
+	pwmYellow.config.polarity = dirYellowVal;
 
-	pwm_Config(&pwmprueba);
-	enableOutput(&pwmprueba);
-	startPwmSignal(&pwmprueba);
+	pwm_Config(&pwmYellow);
+	enableOutput(&pwmYellow);
+	startPwmSignal(&pwmYellow);
 
-	pwmadc.ptrTIMx = TIM5;
-	pwmadc.config.channel = PWM_CHANNEL_1;
-	pwmadc.config.duttyCicle = 100;
-	pwmadc.config.periodo = 500;
-	pwmadc.config.prescaler = 1000;
-	pwmadc.config.polarity = 0;
+	pwmBlue.ptrTIMx = TIM5;
+	pwmBlue.config.channel = PWM_CHANNEL_1;
+	pwmBlue.config.duttyCicle = duttyBlue;
+	pwmBlue.config.periodo = periodo;
+	pwmBlue.config.prescaler = prescaler;
+	pwmBlue.config.polarity = dirBlueVal;
 
-	pwm_Config(&pwmadc);
-	enableOutput(&pwmadc);
-	startPwmSignal(&pwmadc);
+	pwm_Config(&pwmBlue);
+	enableOutput(&pwmBlue);
+	startPwmSignal(&pwmBlue);
 
-	//COnfiugracion ADC se pones un samplig period de 56 ya que ~= 100 mhz / 56 ~= 1.78 Mhz que es más que suficiente
-//	uint8_t channels[1] = { ADC_CHANNEL_3 };
-//	channnel_0.channels = channels;
-//	channnel_0.dataAlignment = ADC_ALIGNMENT_RIGHT;
-//	channnel_0.numberOfChannels = 1;
-//	uint8_t samplingPeriod[1] = { 0 };
-//	samplingPeriod[0] = ADC_SAMPLING_PERIOD_56_CYCLES
-//	;
-//	channnel_0.samplingPeriod = samplingPeriod;
-//	channnel_0.resolution = ADC_RESOLUTION_12_BIT;
-//	channnel_0.externType = EXTEN_RISING_TIMER5_CC1;
-//
-//	adc_Config(&channnel_0);
+	handlerTimer3.ptrTIMx = TIM3; //El timer que se va a usar
+	handlerTimer3.TIMx_Config.TIMx_interruptEnable = 1; //Se habilitan las interrupciones
+	handlerTimer3.TIMx_Config.TIMx_mode = BTIMER_MODE_UP; //Se usara en modo ascendente
+	handlerTimer3.TIMx_Config.TIMx_period = 2500; //Se define el periodo en este caso el led cambiara cada 250ms
+	handlerTimer3.TIMx_Config.TIMx_speed = BTIMER_SPEED_100us; //Se define la "velocidad" que se usara
+
+	BasicTimer_Config(&handlerTimer3); //Se carga la configuración.
+
+	handlerTimer2.ptrTIMx = TIM2; //El timer que se va a usar
+	handlerTimer2.TIMx_Config.TIMx_interruptEnable = 1; //Se habilitan las interrupciones
+	handlerTimer2.TIMx_Config.TIMx_mode = BTIMER_MODE_UP; //Se usara en modo ascendente
+	handlerTimer2.TIMx_Config.TIMx_period = 10; //Se define el periodo en este caso el led cambiara cada 250ms
+	handlerTimer2.TIMx_Config.TIMx_speed = BTIMER_SPEED_100us; //Se define la "velocidad" que se usara
+
+	BasicTimer_Config(&handlerTimer2); //Se carga la configuración.
+
 }
 
 void parseCommands(char *ptrBufferReception) {
@@ -284,43 +381,148 @@ void parseCommands(char *ptrBufferReception) {
 		writeString(&handlerTerminal, "Help Menu CMDs: \n");
 		writeString(&handlerTerminal, "1)  Help -> Print this menu \n");
 
-	} else if (strcmp(cmd, "s") == 0) {
-		printData = firstParameter;
 	}
 
-	else if (strcmp(cmd, "p") == 0) {
-		pwmUpdatePolarity(&pwmprueba, firstParameter);
+	else if (strcmp(cmd, "dir") == 0) {
+		if (firstParameter == 0) {
+			dirBlueVal = secondParameter;
+			pwmUpdatePolarity(&pwmYellow, secondParameter);
+			GPIO_WritePin(&dirPinYw, secondParameter);
+		} else {
+			dirYellowVal = secondParameter;
+			pwmUpdatePolarity(&pwmBlue, secondParameter);
+			GPIO_WritePin(&dirPinBlue, secondParameter);
+		}
+	}
+
+	else if (strcmp(cmd, "pwm") == 0) {
+		if (firstParameter == 0) {
+			pwmYellow.config.duttyCicle = secondParameter;
+			setDuttyCycle(&pwmYellow);
+		} else if (firstParameter == 1) {
+			pwmBlue.config.duttyCicle = secondParameter;
+			setDuttyCycle(&pwmBlue);
+		} else {
+			pwmYellow.config.duttyCicle = secondParameter;
+			pwmBlue.config.duttyCicle = secondParameter;
+			setDuttyCycle(&pwmYellow);
+			setDuttyCycle(&pwmBlue);
+		}
+
+	} else if (strcmp(cmd, "upMode") == 0) {
+		upMode = firstParameter;
+	} else if (strcmp(cmd, "reset") == 0) {
+		x = 0;
+		theta = 0;
+		y = 0;
+	} else if (strcmp(cmd, "rotate") == 0) {
+		if (firstParameter != 0) {
+			rotate = firstParameter / 90 * (M_PI / 2);
+		}
+		move90 = 1;
+		theta = 0;
+		x = 0;
+		y = 0;
+		pwmBlue.config.duttyCicle = duttyInBlue;
+		setDuttyCycle(&pwmBlue);
+		pwmYellow.config.duttyCicle = duttyIYwl;
+		setDuttyCycle(&pwmYellow);
+		dirBlueVal = 1;
+		pwmUpdatePolarity(&pwmBlue, dirBlueVal);
+		GPIO_WritePin(&dirPinBlue, dirBlueVal);
+		dirYellowVal = 0;
+		pwmUpdatePolarity(&pwmYellow, dirYellowVal);
+		GPIO_WritePin(&dirPinYw, dirYellowVal);
+	} else if (strcmp(cmd, "movex") == 0) {
+		if (firstParameter != 0) {
+			distancia = firstParameter;
+		}
+		moves = 1;
+		theta = 0;
+		x = 0;
+		y = 0;
+		pwmBlue.config.duttyCicle = duttyInBlue;
+		setDuttyCycle(&pwmBlue);
+		pwmYellow.config.duttyCicle = duttyIYwl;
+		setDuttyCycle(&pwmYellow);
+
+		dirBlueVal = 0;
+		pwmUpdatePolarity(&pwmBlue, dirBlueVal);
+		GPIO_WritePin(&dirPinBlue, dirBlueVal);
+		dirYellowVal = 0;
+		pwmUpdatePolarity(&pwmYellow, dirYellowVal);
+		GPIO_WritePin(&dirPinYw, dirYellowVal);
+	}
+
+	else if (strcmp(cmd, "wheel") == 0) {
+		wheelbase = firstParameter / 10.0f;
+		sprintf(bufferData, "Wheel = %.2f", wheelbase);
+		writeString(&handlerConexion, bufferData);
+	}
+
+	else if (strcmp(cmd, "wheelSize") == 0) {
+		wheelbase = firstParameter / 100.0f;
+		sprintf(bufferData, "Wheel = %.2f", wheelbase);
+		writeString(&handlerConexion, bufferData);
 	}
 
 	else {
 		// Se imprime el mensaje "Wrong CMD" si la escritura no corresponde a los CMD implementados
-		writeString(&handlerTerminal, "Wrong CMD \n");
+		writeString(&handlerConexion, "Wrong CMD \n");
 	}
+	firstParameter = 0;
 
 }
+void BasicTimer2_Callback(void) {
 
-//Calback del timer2 para el blinking
+	counterTimer2++;
+
+//	counterBlueCounterL[countTimer] = counterBlueCounter;
+//	counterYwlCounterL[countTimer] = counterYwlCounter;
+//	countTimer++;
+//	counterBlueCounter = 0;
+//	counterYwlCounter = 0;
+//	if (countTimer > sizeArrays) {
+//
+//		printcounterBlue = getAverage(counterBlueCounterL, sizeArrays);
+//		printcounterYwl = getAverage(counterYwlCounterL, sizeArrays);
+//		sprintf(bufferData,
+//				"%.1f\t%.1f\t%d\t%d\t%.2f\t%.2f\t%.5f\t%.5f\t%.3f\n",
+//				pwmYellow.config.duttyCicle / 10.0f,
+//				pwmBlue.config.duttyCicle / 10.0f, dirYellowVal, dirBlueVal,
+//				x / 100, y / 100, printcounterYwl, printcounterBlue, theta);
+//		writeString(&handlerConexion, bufferData);
+////		float aux = printcounterYwl - printcounterBlue;
+////		if (aux > 2.0f * 0.02f) {
+////			pwmBlue.config.duttyCicle += 1;
+////			setDuttyCycle(&pwmBlue);
+////		} else if (aux < -2.0f * 0.02f) {
+////			pwmBlue.config.duttyCicle -= 1;
+////			setDuttyCycle(&pwmBlue);
+////		}
+//		countTimer = 0;
+//	}
+}
+//Calback del timer3 para el blinking
 void BasicTimer3_Callback(void) {
 	GPIOxTooglePin(&ledUsuario);
-}
-
-void USART2_IRQHandler(void) {
-	if (USART2->SR & USART_SR_RXNE) {
-		/* Limpiamos la bandera que indica que la interrupción se ha generado */
-		USART2->SR &= ~USART_SR_RXNE;
-		//Auxiliar
-		rxData = (uint8_t) USART2->DR;
-
+	counter10seg++;
+	if (counter10seg > 4 * 1 - 1) {
+		sprintf(bufferData, "%.4f\t%.4f\t%.4f\t%d\t%d\t%.1f\t%.1f\n", x / 100,
+				y / 100, theta, (counterBlueCounterT - lastValBlue),
+				(counterYwlCounterT - lastValYwl),
+				pwmBlue.config.duttyCicle / 10.0f,
+				pwmYellow.config.duttyCicle / 10.0f);
+		writeString(&handlerConexion, bufferData);
+		lastValBlue = counterBlueCounterT;
+		lastValYwl = counterYwlCounterT;
+		counter10seg = 0;
 	}
 
 }
 
-void adcComplete_Callback(void) {
-	adcLastData = getADC();
-	if (printData) {
-		sprintf(bufferData, "%d\n", adcLastData);
-		writeString(&handlerTerminal, bufferData);
-	}
+void USART1Rx_Callback(void) {
+	rxData2 = (uint8_t) USART1->DR;
 }
 
 void callback_extInt0(void) {
@@ -334,10 +536,89 @@ void callback_extInt7(void) {
 
 void callback_extInt1(void) {
 
-	PC1Counter++;
+	counterBlueCounter++;
+	counterBlueCounterT++;
+	timeBlue = counterTimer2 - lastBlue;
+	lastBlue = counterTimer2;
+	updatePosition();
 }
 
 void callback_extInt3(void) {
 
-	PC3Counter++;
+	counterYwlCounter++;
+	counterYwlCounterT++;
+	timeYwl = counterTimer2 - lastYlw;
+	lastYlw = counterTimer2;
+	updatePosition();
+
+}
+
+double getAverage(int arr[], int size) {
+	int sum = 0;
+	double average;
+
+	// Sum all elements in the array
+	for (int i = 0; i < size; i++) {
+		sum += arr[i];
+	}
+
+	// Calculate average
+	average = (double) sum / size;
+
+	return average;
+}
+
+void updatePosition(void) {
+	double dLeft, dRight, dCenter, deltaTheta, deltaX, deltaY;
+
+	recorridoBlue = (M_PI / 72) * (wheelsize * counterBlueCounter);
+	recorridoYellow = (M_PI / 72) * (wheelsize * counterYwlCounter);
+	counterBlueCounter = 0;
+	counterYwlCounter = 0;
+	// Convert directions into forward (1) or backward (-1) multipliers
+	int multiplierBlue = (dirBlueVal == 0) ? 1 : -1;
+	int multiplierYellow = (dirYellowVal == 0) ? 1 : -1;
+
+	// Calculate distances traveled by each wheel, adjusted by direction
+	dLeft = recorridoBlue * multiplierBlue;
+	dRight = recorridoYellow * multiplierYellow;
+
+	// Average distance traveled by the robot
+	dCenter = (dLeft + dRight) / 2.0;
+
+	// Calculate change in orientation
+	deltaTheta = (dRight - dLeft) / wheelbase;
+
+	// Update theta
+	theta += deltaTheta;
+
+	if ((theta >= rotate - (0.025 * 8.0f)) && move90 == 1) {
+		pwmYellow.config.duttyCicle = 5;
+		pwmBlue.config.duttyCicle = 5;
+		setDuttyCycle(&pwmYellow);
+		setDuttyCycle(&pwmBlue);
+		move90 = 0;
+	}
+
+	// Ensure theta stays within [-pi, pi]
+	if (theta > M_PI)
+		theta -= 2 * M_PI;
+	else if (theta < -M_PI)
+		theta += 2 * M_PI;
+
+	// Calculate change in position
+	deltaX = dCenter * cos(0);
+	deltaY = dCenter * sin(0);
+
+	// Update position
+	x += deltaX;
+	y += deltaY;
+
+	if ((x > distancia) && moves == 1) {
+		pwmYellow.config.duttyCicle = 5;
+		pwmBlue.config.duttyCicle = 5;
+		setDuttyCycle(&pwmYellow);
+		setDuttyCycle(&pwmBlue);
+	}
+
 }

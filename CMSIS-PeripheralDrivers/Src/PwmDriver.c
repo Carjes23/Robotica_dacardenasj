@@ -109,7 +109,7 @@ void pwm_Config(PWM_Handler_t *ptrPwmHandler) {
 
 	}		// fin del switch-case
 	/* 6. Activamos la salida seleccionada */
-	enableOutput(ptrPwmHandler);
+
 }
 
 /* Función para activar el Timer y activar todos el módulo PWM */
@@ -153,8 +153,6 @@ void startPwmSignal(PWM_Handler_t *ptrPwmHandler) {
 /* Función para desactivar el Timer y detener todos el módulo PWM*/
 void stopPwmSignal(PWM_Handler_t *ptrPwmHandler) {
 	//desactivamos el timer
-
-	ptrPwmHandler->ptrTIMx->CR1 &= ~(TIM_CR1_CEN);
 
 	//Activamos la salida dependiendo del chanel usado
 
@@ -219,6 +217,37 @@ void enableOutput(PWM_Handler_t *ptrPwmHandler) {
 	}
 	}
 }
+
+/* Function responsible for toggling the enable state of each channel of the TimerX */
+void toggleEnableOutput(PWM_Handler_t *ptrPwmHandler) {
+
+    switch (ptrPwmHandler->config.channel) {
+    case PWM_CHANNEL_1: {
+        // Toggle the enable state of channel 1
+        ptrPwmHandler->ptrTIMx->CCER ^= TIM_CCER_CC1E;
+        break;
+    }
+
+    case PWM_CHANNEL_2: {
+        ptrPwmHandler->ptrTIMx->CCER ^= TIM_CCER_CC2E;
+        break;
+    }
+    case PWM_CHANNEL_3: {
+        ptrPwmHandler->ptrTIMx->CCER ^= TIM_CCER_CC3E;
+        break;
+    }
+    case PWM_CHANNEL_4: {
+        ptrPwmHandler->ptrTIMx->CCER ^= TIM_CCER_CC4E;
+        break;
+    }
+
+    default: {
+        // Handle unexpected channel value if necessary
+        break;
+    }
+    }
+}
+
 
 /* 
  * La frecuencia es definida por el conjunto formado por el preescaler (PSC)
