@@ -1,9 +1,7 @@
-SystemCoreClock
-adcLastData
-pwprueba
-rxData
-bufferReception
-PC7Counter
-PC1Counter
-PC3Counter
-PC0Counter
+counterTimer2
+lastBlue
+counterBlueCounterT
+timeBlue
+timeYwl
+pwmYellow
+pwmBlue

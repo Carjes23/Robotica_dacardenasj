@@ -1,4 +1,4 @@
-11:01:12 **** Incremental Build of configuration Debug for project CMSIS-PeripheralDrivers ****
+20:07:58 **** Build of configuration Debug for project CMSIS-PeripheralDrivers ****
 make clean all 
 rm -rf ./Src/AdcDriver.d ./Src/AdcDriver.o ./Src/AdcDriver.su ./Src/BasicTimer.d ./Src/BasicTimer.o ./Src/BasicTimer.su ./Src/ExtiDriver.d ./Src/ExtiDriver.o ./Src/ExtiDriver.su ./Src/GPIOxDriver.d ./Src/GPIOxDriver.o ./Src/GPIOxDriver.su ./Src/I2CxDriver.d ./Src/I2CxDriver.o ./Src/I2CxDriver.su ./Src/ILI9341.d ./Src/ILI9341.o ./Src/ILI9341.su ./Src/LCDI2C.d ./Src/LCDI2C.o ./Src/LCDI2C.su ./Src/PLLDriver.d ./Src/PLLDriver.o ./Src/PLLDriver.su ./Src/PwmDriver.d ./Src/PwmDriver.o ./Src/PwmDriver.su ./Src/RTCDriver.d ./Src/RTCDriver.o ./Src/RTCDriver.su ./Src/SPIxDriver.d ./Src/SPIxDriver.o ./Src/SPIxDriver.su ./Src/SysTick.d ./Src/SysTick.o ./Src/SysTick.su ./Src/USARTxDriver.d ./Src/USARTxDriver.o ./Src/USARTxDriver.su
 rm -rf libCMSIS-PeripheralDrivers.a
@@ -21,5 +21,5 @@ arm-none-eabi-ar: creating libCMSIS-PeripheralDrivers.a
 Finished building target: libCMSIS-PeripheralDrivers.a
  
 
-11:01:13 Build Finished. 0 errors, 0 warnings. (took 1s.620ms)
+20:08:00 Build Finished. 0 errors, 0 warnings. (took 2s.20ms)
 

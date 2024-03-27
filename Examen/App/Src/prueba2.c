@@ -445,7 +445,6 @@ void parseCommands(char *ptrBufferReception) {
 		setDuttyCycle(&pwmBlue);
 		pwmYellow.config.duttyCicle = duttyIYwl;
 		setDuttyCycle(&pwmYellow);
-
 		dirBlueVal = 0;
 		pwmUpdatePolarity(&pwmBlue, dirBlueVal);
 		GPIO_WritePin(&dirPinBlue, dirBlueVal);
