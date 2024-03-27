@@ -167,3 +167,4 @@ Release/
 .metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
 .metadata/.plugins/org.eclipse.ui.workbench.texteditor/dialog_settings.xml
 .metadata/version.ini
+*.list

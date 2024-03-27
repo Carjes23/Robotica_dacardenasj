@@ -118,8 +118,8 @@ int PC0Counter = 0;
 
 uint16_t prescaler = 400;
 uint16_t periodo = 10000;
-#define duttyInBlue 3500//250  //350
-#define duttyIYwl  3410//264//364
+uint16_t duttyInBlue = 3500;//250  //350
+uint16_t duttyIYwl = 3410;//264//364
 uint16_t duttyBlue = start;
 uint16_t duttyYwl = start;
 uint16_t distancia = 300;
@@ -397,10 +397,12 @@ void parseCommands(char *ptrBufferReception) {
 
 	else if (strcmp(cmd, "pwm") == 0) {
 		if (firstParameter == 0) {
-			pwmYellow.config.duttyCicle = secondParameter;
+			duttyIYwl = secondParameter;
+			pwmYellow.config.duttyCicle = duttyIYwl;
 			setDuttyCycle(&pwmYellow);
 		} else if (firstParameter == 1) {
-			pwmBlue.config.duttyCicle = secondParameter;
+			duttyInBlue = secondParameter;
+			pwmBlue.config.duttyCicle = duttyInBlue;
 			setDuttyCycle(&pwmBlue);
 		} else {
 			pwmYellow.config.duttyCicle = secondParameter;

@@ -1,4 +1,4 @@
-20:08:04 **** Incremental Build of configuration Debug for project Examen ****
+08:40:17 **** Incremental Build of configuration Debug for project Examen ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -14,12 +14,12 @@ Finished building target: Examen.elf
  
 arm-none-eabi-size   Examen.elf 
    text	   data	    bss	    dec	    hex	filename
-  39412	    496	   2640	  42548	   a634	Examen.elf
+  39444	    500	   2640	  42584	   a658	Examen.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  Examen.elf  > "Examen.list"
 Finished building: Examen.list
  
 
-20:08:05 Build Finished. 0 errors, 0 warnings. (took 1s.119ms)
+08:40:18 Build Finished. 0 errors, 0 warnings. (took 915ms)
 
