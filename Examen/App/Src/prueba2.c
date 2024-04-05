@@ -47,6 +47,7 @@ uint64_t counterTimer2 = 0;
 uint64_t lastBlue = 0;
 uint64_t lastYlw = 0;
 
+uint16_t counterTimer2R = 0;
 uint16_t counterReception = 0;
 
 char bufferReception[20] = { 0 };
@@ -68,7 +69,7 @@ void vTaskOne(void *pvParameters);
 void vTaskTwo(void *pvParameters);
 void configPeripherals(void);
 void taskCreation(void);
-double getAverage(int arr[], int size);
+double getAverage(uint16_t arr[], int size);
 #define sizeArrays (40*4) -1
 GPIO_Handler_t ledUsuario;
 GPIO_Handler_t pwprueba;
@@ -97,7 +98,9 @@ GPIO_Handler_t counterYellow;
 EXTI_Config_t counterYellowE;
 int counterBlueCounter = 0;
 int counterBlueCounterT = 0;
-int counterBlueCounterL[sizeArrays] = { 0 };
+int counterBlueLastIns = 0;
+int counterYellowLastIns = 0;
+
 double printcounterBlue = 0;
 uint16_t timeBlue = 0;
 
@@ -118,8 +121,12 @@ int PC0Counter = 0;
 
 uint16_t prescaler = 400;
 uint16_t periodo = 10000;
-uint16_t duttyInBlue = 3500;//250  //350
-uint16_t duttyIYwl = 3410;//264//364
+uint16_t duttyInBlue = 3500; //250  //350
+uint16_t duttyIYwl = 3640; //3780; //264//364
+
+uint16_t duttyGiroBlue = 3500; //250  //350
+uint16_t duttyGiroYwl = 3000; //264//364
+
 uint16_t duttyBlue = start;
 uint16_t duttyYwl = start;
 uint16_t distancia = 300;
@@ -132,6 +139,7 @@ GPIO_Handler_t dirPinBlue;
 bool dir = 0;
 bool moves = 0;
 bool move90 = 0;
+bool onMove = 0;
 
 float recorridoBlue;
 float recorridoYellow;
@@ -142,6 +150,13 @@ float wheelbase = 11.0; // Distance between wheels
 uint16_t counter10seg = 0;
 float wheelsize = 5.7;
 float rotate = M_PI / 2;
+
+uint16_t timeBlueArray[100] = { 0 };
+uint16_t timeYellowArray[100] = { 0 };
+float timeBlueAvg, timeYwlAvg = 0;
+
+bool newMoveBlue, newMoveYellow;
+bool calibrate = 0;
 
 void updatePosition(void);
 
@@ -362,7 +377,7 @@ void configPeripherals(void) {
 	handlerTimer2.TIMx_Config.TIMx_interruptEnable = 1; //Se habilitan las interrupciones
 	handlerTimer2.TIMx_Config.TIMx_mode = BTIMER_MODE_UP; //Se usara en modo ascendente
 	handlerTimer2.TIMx_Config.TIMx_period = 10; //Se define el periodo en este caso el led cambiara cada 250ms
-	handlerTimer2.TIMx_Config.TIMx_speed = BTIMER_SPEED_100us; //Se define la "velocidad" que se usara
+	handlerTimer2.TIMx_Config.TIMx_speed = 10; //Se define la "velocidad" que se usara
 
 	BasicTimer_Config(&handlerTimer2); //Se carga la configuración.
 
@@ -425,9 +440,9 @@ void parseCommands(char *ptrBufferReception) {
 		theta = 0;
 		x = 0;
 		y = 0;
-		pwmBlue.config.duttyCicle = duttyInBlue;
+		pwmBlue.config.duttyCicle = duttyGiroBlue;
 		setDuttyCycle(&pwmBlue);
-		pwmYellow.config.duttyCicle = duttyIYwl;
+		pwmYellow.config.duttyCicle = duttyGiroYwl;
 		setDuttyCycle(&pwmYellow);
 		dirBlueVal = 1;
 		pwmUpdatePolarity(&pwmBlue, dirBlueVal);
@@ -435,6 +450,9 @@ void parseCommands(char *ptrBufferReception) {
 		dirYellowVal = 0;
 		pwmUpdatePolarity(&pwmYellow, dirYellowVal);
 		GPIO_WritePin(&dirPinYw, dirYellowVal);
+		newMoveBlue = 1;
+		newMoveYellow = 1;
+		onMove = 1;
 	} else if (strcmp(cmd, "movex") == 0) {
 		if (firstParameter != 0) {
 			distancia = firstParameter;
@@ -453,6 +471,9 @@ void parseCommands(char *ptrBufferReception) {
 		dirYellowVal = 0;
 		pwmUpdatePolarity(&pwmYellow, dirYellowVal);
 		GPIO_WritePin(&dirPinYw, dirYellowVal);
+		newMoveBlue = 1;
+		newMoveYellow = 1;
+		onMove = 1;
 	}
 
 	else if (strcmp(cmd, "wheel") == 0) {
@@ -477,6 +498,38 @@ void parseCommands(char *ptrBufferReception) {
 void BasicTimer2_Callback(void) {
 
 	counterTimer2++;
+	if (onMove) {
+		if (counterTimer2 % 100 == 0) {
+			if (calibrate) {
+				int aux = timeBlueAvg - timeYwlAvg;
+				if (aux > 13) {
+					duttyIYwl -= 7;
+					pwmYellow.config.duttyCicle = duttyIYwl;
+					setDuttyCycle(&pwmYellow);
+				} else if (aux < -13) {
+					duttyIYwl += 7;
+					pwmYellow.config.duttyCicle = duttyIYwl;
+					setDuttyCycle(&pwmYellow);
+
+				}
+				if (counterTimer2 % 1000 == 0 && moves == 1) {
+					if (theta > 0.02) {
+						duttyIYwl -= 10;
+						pwmYellow.config.duttyCicle = duttyIYwl;
+						setDuttyCycle(&pwmYellow);
+
+					} else if (theta < -0.02) {
+						duttyIYwl += 10;
+						pwmYellow.config.duttyCicle = duttyIYwl;
+						setDuttyCycle(&pwmYellow);
+					}
+				}
+			}
+
+			updatePosition();
+		}
+
+	}
 
 //	counterBlueCounterL[countTimer] = counterBlueCounter;
 //	counterYwlCounterL[countTimer] = counterYwlCounter;
@@ -507,13 +560,15 @@ void BasicTimer2_Callback(void) {
 //Calback del timer3 para el blinking
 void BasicTimer3_Callback(void) {
 	GPIOxTooglePin(&ledUsuario);
+
 	counter10seg++;
 	if (counter10seg > 4 * 1 - 1) {
-		sprintf(bufferData, "%.4f\t%.4f\t%.4f\t%d\t%d\t%.1f\t%.1f\n", x / 100,
-				y / 100, theta, (counterBlueCounterT - lastValBlue),
+		sprintf(bufferData, "%.4f\t%.4f\t%.4f\t%d\t%d\t%.3f\t%.3f\t%d\t%d\n",
+				x / 100, y / 100, theta, (counterBlueCounterT - lastValBlue),
 				(counterYwlCounterT - lastValYwl),
-				pwmBlue.config.duttyCicle / 10.0f,
-				pwmYellow.config.duttyCicle / 10.0f);
+				pwmBlue.config.duttyCicle / 100.0f,
+				pwmYellow.config.duttyCicle / 100.0f, (int) timeBlueAvg,
+				(int) timeYwlAvg);
 		writeString(&handlerConexion, bufferData);
 		lastValBlue = counterBlueCounterT;
 		lastValYwl = counterYwlCounterT;
@@ -536,34 +591,84 @@ void callback_extInt7(void) {
 }
 
 void callback_extInt1(void) {
-
-	counterBlueCounter++;
+	int size = sizeof(timeBlueArray) / sizeof(timeBlueArray[0]);
 	counterBlueCounterT++;
-	timeBlue = counterTimer2 - lastBlue;
-	lastBlue = counterTimer2;
-	updatePosition();
+	if (onMove) {
+		if (newMoveBlue) {
+			counterBlueLastIns = 0;
+			newMoveBlue = 0;
+			timeBlueAvg = 0;
+		}
+
+		counterBlueCounter++;
+
+		timeBlue = counterTimer2 - lastBlue;
+		lastBlue = counterTimer2;
+		if (timeBlue < 800) {
+
+			timeBlueArray[counterBlueLastIns % size] = timeBlue;
+
+			if (counterBlueLastIns <= size) {
+				if (!timeBlueAvg) {
+					timeBlueAvg = timeBlue;
+				} else {
+					timeBlueAvg = (timeBlueAvg * counterBlueLastIns + timeBlue)
+							/ (float) (counterBlueLastIns + 1.0f);
+				}
+			} else {
+				timeBlueAvg = getAverage(timeBlueArray, size);
+			}
+
+			counterBlueLastIns++;
+		}
+	}
+
 }
 
 void callback_extInt3(void) {
-
-	counterYwlCounter++;
+	int size = sizeof(timeYellowArray) / sizeof(timeYellowArray[0]);
 	counterYwlCounterT++;
-	timeYwl = counterTimer2 - lastYlw;
-	lastYlw = counterTimer2;
-	updatePosition();
+	if (onMove) {
+		if (newMoveYellow) {
+			counterYellowLastIns = 0;
+			newMoveYellow = 0;
+			timeYwlAvg = 0;
+		}
+		timeYwl = counterTimer2 - lastYlw;
+		lastYlw = counterTimer2;
+		counterYwlCounter++;
+		if (timeYwl < 800) {
+
+			timeYellowArray[counterYellowLastIns % size] = timeYwl;
+			if (counterBlueLastIns <= size) {
+				if (!timeYwlAvg) {
+					timeYwlAvg = timeYwl;
+
+				} else {
+					timeYwlAvg = (timeYwlAvg * counterYellowLastIns + timeYwl)
+							/ (float) (counterYellowLastIns + 1.0f);
+				}
+			} else {
+				timeYwlAvg = getAverage(timeYellowArray, size);
+			}
+
+			counterYellowLastIns++;
+
+		}
+	}
 
 }
 
-double getAverage(int arr[], int size) {
+double getAverage(uint16_t arr[], int size) {
 	int sum = 0;
 	double average;
 
-	// Sum all elements in the array
+// Sum all elements in the array
 	for (int i = 0; i < size; i++) {
 		sum += arr[i];
 	}
 
-	// Calculate average
+// Calculate average
 	average = (double) sum / size;
 
 	return average;
@@ -571,55 +676,61 @@ double getAverage(int arr[], int size) {
 
 void updatePosition(void) {
 	double dLeft, dRight, dCenter, deltaTheta, deltaX, deltaY;
+	if (timeBlueAvg != 0 && timeYwlAvg != 0) {
+		recorridoBlue = 100 * (M_PI / 72) * (wheelsize * (1 / (10*round(timeBlueAvg/10))));
+		recorridoYellow = 100 * (M_PI / 72) * (wheelsize * (1 / (10*round(timeYwlAvg/10))));
+		counterBlueCounter = 0;
+		counterYwlCounter = 0;
+		// Convert directions into forward (1) or backward (-1) multipliers
+		int multiplierBlue = (dirBlueVal == 0) ? 1 : -1;
+		int multiplierYellow = (dirYellowVal == 0) ? 1 : -1;
 
-	recorridoBlue = (M_PI / 72) * (wheelsize * counterBlueCounter);
-	recorridoYellow = (M_PI / 72) * (wheelsize * counterYwlCounter);
-	counterBlueCounter = 0;
-	counterYwlCounter = 0;
-	// Convert directions into forward (1) or backward (-1) multipliers
-	int multiplierBlue = (dirBlueVal == 0) ? 1 : -1;
-	int multiplierYellow = (dirYellowVal == 0) ? 1 : -1;
+		// Calculate distances traveled by each wheel, adjusted by direction
+		dLeft = recorridoBlue * multiplierBlue;
+		dRight = recorridoYellow * multiplierYellow;
 
-	// Calculate distances traveled by each wheel, adjusted by direction
-	dLeft = recorridoBlue * multiplierBlue;
-	dRight = recorridoYellow * multiplierYellow;
+		// Average distance traveled by the robot
+		dCenter = (dLeft + dRight) / 2.0;
 
-	// Average distance traveled by the robot
-	dCenter = (dLeft + dRight) / 2.0;
+		// Calculate change in orientation
+		deltaTheta = (dRight - dLeft) / wheelbase;
 
-	// Calculate change in orientation
-	deltaTheta = (dRight - dLeft) / wheelbase;
+		theta += deltaTheta;
 
-	// Update theta
-	theta += deltaTheta;
+		if ((theta >= rotate) && move90 == 1) {
+			onMove = 0;
+			pwmYellow.config.duttyCicle = 5;
+			pwmBlue.config.duttyCicle = 5;
+			setDuttyCycle(&pwmYellow);
+			setDuttyCycle(&pwmBlue);
+			move90 = 0;
 
-	if ((theta >= rotate - (0.025 * 8.0f)) && move90 == 1) {
-		pwmYellow.config.duttyCicle = 5;
-		pwmBlue.config.duttyCicle = 5;
-		setDuttyCycle(&pwmYellow);
-		setDuttyCycle(&pwmBlue);
-		move90 = 0;
-	}
+		}
 
-	// Ensure theta stays within [-pi, pi]
-	if (theta > M_PI)
-		theta -= 2 * M_PI;
-	else if (theta < -M_PI)
-		theta += 2 * M_PI;
+		// Ensure theta stays within [-pi, pi]
+		if (theta > M_PI)
+			theta -= 2 * M_PI;
+		else if (theta < -M_PI)
+			theta += 2 * M_PI;
 
-	// Calculate change in position
-	deltaX = dCenter * cos(0);
-	deltaY = dCenter * sin(0);
+		// Calculate change in position
+		deltaX = dCenter * cos(theta);
+		deltaY = dCenter * sin(theta);
 
-	// Update position
-	x += deltaX;
-	y += deltaY;
+		// Update position
+		x += deltaX;
+		y += deltaY;
 
-	if ((x > distancia) && moves == 1) {
-		pwmYellow.config.duttyCicle = 5;
-		pwmBlue.config.duttyCicle = 5;
-		setDuttyCycle(&pwmYellow);
-		setDuttyCycle(&pwmBlue);
+		if ((x > distancia) && moves == 1) {
+			onMove = 0;
+			pwmYellow.config.duttyCicle = 5;
+			pwmBlue.config.duttyCicle = 5;
+			setDuttyCycle(&pwmYellow);
+			setDuttyCycle(&pwmBlue);
+			counterBlueLastIns = 0;
+			counterYellowLastIns = 0;
+
+		}
 	}
 
 }

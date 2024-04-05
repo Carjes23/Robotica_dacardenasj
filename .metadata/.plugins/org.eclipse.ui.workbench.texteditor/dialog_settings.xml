@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="counterYellowT"/>
+		<item key="selection" value="timeBlueAvg"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="timeBlueAvg"/>
+			<item value="updatePosition"/>
+			<item value="timeywl"/>
+			<item value="newMoveBlue"/>
+			<item value="lastValBlue"/>
+			<item value="}"/>
+			<item value="counterYwlCounter"/>
+			<item value="timer2"/>
 			<item value="counterYellowE"/>
 			<item value="uint64"/>
 			<item value="uint"/>
 			<item value="counterYellowCounter"/>
 			<item value="counterYellowCounterL"/>
 			<item value="printcounterYwl"/>
-			<item value="counterYwlCounter"/>
 			<item value="start"/>
-			<item value="counter10seg"/>
-			<item value="printcounterYellow"/>
-			<item value="counterBlue"/>
-			<item value="printcounterBlue"/>
-			<item value="PC3"/>
-			<item value="PC1"/>
-			<item value="/**"/>
 		</list>
 		<list key="replacehistory">
 			<item value="counterYellowT"/>
