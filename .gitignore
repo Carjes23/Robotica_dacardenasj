@@ -61,6 +61,7 @@ Release/
 .directory
 *.zip
 *.png
+.metadata/
 .metadata/.ide.log
 .metadata/.log
 .metadata/.plugins/com.st.stm32cube.ide.mcu.livewatch/saved_expr.dat

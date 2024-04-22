@@ -34,6 +34,8 @@
 
 void configPeripherals(void);
 void parseCommands(char *ptrBufferReception);
+void adjustPWMWithinRange(PWM_Handler_t *pwmHandler, int targetDutty,
+		int diffPWM);
 
 //Handler para el control de la terminal
 USART_Handler_t handlerTerminal = { 0 };
@@ -74,6 +76,8 @@ double getAverage(uint16_t arr[], int size);
 #define sizeArrays (40*4) -1
 GPIO_Handler_t ledUsuario;
 GPIO_Handler_t pwprueba;
+int clamp(int value, int min, int max);
+void updateMotorControl();
 
 /*Definición de variables del sistema*/
 
@@ -125,8 +129,8 @@ uint16_t periodo = 10000;
 uint16_t duttyInBlue = 3237; //250  //350 32.370 30.190
 uint16_t duttyIYwl = 3015; //3780; //264//364
 
-uint16_t duttyGiroBlue = 2500; //250  //350
-uint16_t duttyGiroYwl = 2200; //264//364
+uint16_t duttyGiroBlue = 3237; //250  //350
+uint16_t duttyGiroYwl = 3015; //264//364
 
 uint16_t duttyBlue = start;
 uint16_t duttyYwl = start;
@@ -569,136 +573,9 @@ void BasicTimer3_Callback(void) {
 			/ (counter10avg + 1.0f);
 	counter10avg++;
 
-	if (initialCalibrate) {
-		int change = 1;
-		int aux = counterYwlCounter - counterBlueCounter;
-		if (aux > 1) {
-			aux = abs(aux);
-			duttyIYwl -= change * aux;
-			pwmYellow.config.duttyCicle = duttyIYwl;
-
-			duttyInBlue += change * aux;
-			pwmBlue.config.duttyCicle = duttyInBlue;
-
-		} else if (aux < -1) {
-			aux = abs(aux);
-			duttyIYwl += change * aux;
-			pwmYellow.config.duttyCicle = duttyIYwl;
-
-			duttyInBlue -= change * aux;
-			pwmBlue.config.duttyCicle = duttyInBlue;
-
-		}
-	}
-
-	if (counter10avg >= 8) {
-		if (onMove) {
-			if (initialCalibrate) {
-				int change = 1;
-				int aux = counterYwlCounter - counterBlueCounter;
-
-				aux = counterYwlCounterT - counterBlueCounterT;
-				change = 1;
-				if (aux > 5) {
-					aux = abs(aux);
-					duttyIYwl -= change * aux;
-					pwmYellow.config.duttyCicle = duttyIYwl;
-
-					duttyInBlue += change * aux;
-					pwmBlue.config.duttyCicle = duttyInBlue;
-
-				} else if (aux < 5) {
-					aux = abs(aux);
-					duttyIYwl += change * aux;
-					pwmYellow.config.duttyCicle = duttyIYwl;
-
-					duttyInBlue -= change * aux;
-					pwmBlue.config.duttyCicle = duttyInBlue;
-
-				}
-
-				if (moves) {
-					// Control action to maintain y = 0
-					double Kp = 250; // Proportional gain, needs tuning
-					double y_error = -y; // Error in y position
-					double adjust = Kp * y_error;
-
-					// Adjust PWM duty cycles based on the error
-					pwmYellow.config.duttyCicle += (int) adjust;
-					pwmBlue.config.duttyCicle -= (int) adjust;
-				}
-
-			}
-
-			if (calibrate) {
-				int change = 1;
-				int aux = counterYwlCounter - counterBlueCounter;
-				if (aux > 0) {
-					duttyIYwl -= change * aux;
-					pwmYellow.config.duttyCicle = duttyIYwl;
-
-					duttyInBlue += change * aux;
-					pwmBlue.config.duttyCicle = duttyInBlue;
-
-				} else if (aux < 0) {
-					duttyIYwl += change * aux;
-					pwmYellow.config.duttyCicle = duttyIYwl;
-
-					duttyInBlue -= change * aux;
-					pwmBlue.config.duttyCicle = duttyInBlue;
-
-				}
-				if (moves == 1) {
-					change *= 5;
-					if (theta > 0.02) {
-						duttyIYwl -= change;
-						pwmYellow.config.duttyCicle = duttyIYwl;
-
-						duttyInBlue += change;
-						pwmBlue.config.duttyCicle = duttyInBlue;
-
-					} else if (theta < -0.02) {
-						duttyIYwl += 10;
-						pwmYellow.config.duttyCicle = duttyIYwl;
-
-						duttyInBlue -= change;
-						pwmBlue.config.duttyCicle = duttyInBlue;
-
-					}
-				}
-
-			}
-
-			if (initialCalibrate || calibrate) {
-				if (pwmYellow.config.duttyCicle >= duttyIYwl - 500
-						&& pwmYellow.config.duttyCicle <= duttyIYwl + 500) {
-					setDuttyCycle(&pwmYellow);
-				} else if (pwmYellow.config.duttyCicle < duttyIYwl - 500) {
-					duttyIYwl = duttyIYwl - 500;
-					pwmYellow.config.duttyCicle = duttyIYwl;
-					setDuttyCycle(&pwmYellow);
-				} else {
-					duttyIYwl = duttyIYwl + 500;
-					pwmYellow.config.duttyCicle = duttyIYwl;
-					setDuttyCycle(&pwmYellow);
-				}
-				if (pwmBlue.config.duttyCicle >= duttyInBlue - 500
-						&& pwmBlue.config.duttyCicle <= duttyInBlue + 500) {
-					setDuttyCycle(&pwmBlue);
-				} else if (pwmBlue.config.duttyCicle < duttyInBlue - 500) {
-					duttyInBlue = duttyInBlue - 500;
-					pwmBlue.config.duttyCicle = duttyInBlue;
-					setDuttyCycle(&pwmBlue);
-				} else {
-					duttyInBlue = duttyInBlue + 500;
-					pwmBlue.config.duttyCicle = duttyInBlue;
-					setDuttyCycle(&pwmBlue);
-				}
-			}
-
-		}
-
-		counter10avg = 0;
+	if (counter10avg >= 8 && onMove && initialCalibrate) {
+		updateMotorControl();  // Call the motor control update function
+		counter10avg = 0;      // Reset the counter for the next period
 	}
 
 	if (modoVueltas == 0) {
@@ -710,6 +587,7 @@ void BasicTimer3_Callback(void) {
 	}
 
 	if (counter10seg > 4 * 3 - 1) {
+
 		sprintf(bufferData,
 				"%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.3f\t%.3f\t%d\t%d\n", x / 100,
 				y / 100, theta, (avgBlue), (avgYwl),
@@ -722,6 +600,23 @@ void BasicTimer3_Callback(void) {
 		counter10seg = 0;
 	}
 
+}
+
+/**
+ * Adjust PWM settings within specified range and apply.
+ */
+void adjustPWMWithinRange(PWM_Handler_t *pwmHandler, int targetDutty,
+		int diffPWM) {
+	if (pwmHandler->config.duttyCicle >= targetDutty - diffPWM
+			&& pwmHandler->config.duttyCicle <= targetDutty + diffPWM) {
+		setDuttyCycle(pwmHandler);
+	} else if (pwmHandler->config.duttyCicle < targetDutty - diffPWM) {
+		pwmHandler->config.duttyCicle = targetDutty - diffPWM;
+		setDuttyCycle(pwmHandler);
+	} else {
+		pwmHandler->config.duttyCicle = targetDutty + diffPWM;
+		setDuttyCycle(pwmHandler);
+	}
 }
 
 void USART1Rx_Callback(void) {
@@ -797,25 +692,6 @@ void updatePosition(void) {
 	dCenter = (dLeft + dRight) / 2.0;
 	deltaTheta = (dRight - dLeft) / wheelbase;
 	// Calculate change in orientation
-//	if (initialCalibrate && moves == 1) {
-//		int change = 500;
-//		float abstheta = fabs(deltaTheta);
-//		if (deltaTheta > 0) {
-//			duttyIYwl -= (int) change * abstheta;
-//			pwmYellow.config.duttyCicle = duttyIYwl;
-//
-//			duttyInBlue += (int) change * abstheta;
-//			pwmBlue.config.duttyCicle = duttyInBlue;
-//
-//		} else if (deltaTheta < 0) {
-//			duttyIYwl += (int) change * abstheta;
-//			pwmYellow.config.duttyCicle = duttyIYwl;
-//
-//			duttyInBlue -= (int) change * abstheta;
-//			pwmBlue.config.duttyCicle = duttyInBlue;
-//
-//		}
-//	}
 
 	theta += deltaTheta;
 
@@ -853,3 +729,41 @@ void stop(void) {
 	counterBlueLastIns = 0;
 	counterYellowLastIns = 0;
 }
+
+// Define global or static variables for PID control
+static double integral = 0.0;  // Integral accumulator
+static double lastError = 0.0; // Last theta error for derivative calculation
+const double Kp = 3000.0;      // Proportional gain, tuned to match theta range [-PI, PI] and PWM scale
+const double Ki = 50.0;        // Integral gain, adjust based on system response
+const double Kd = 500.0;       // Derivative gain, adjust based on system response
+
+void updateMotorControl() {
+    // Current theta error, assuming theta is updated elsewhere in the code
+    double thetaError = theta;
+    double derivative = thetaError - lastError;
+    integral += thetaError;  // Update integral with current error
+
+    // Calculate adjustment using PID control
+    double adjust = (Kp * thetaError) + (Ki * integral) + (Kd * derivative);
+
+    // Apply the adjustment to PWM settings, making sure to stay within safe operational limits
+    pwmYellow.config.duttyCicle = clamp(pwmYellow.config.duttyCicle - (int) adjust,
+                                        duttyGiroYwl - 250, duttyGiroYwl + 250);
+    pwmBlue.config.duttyCicle = clamp(pwmBlue.config.duttyCicle + (int) adjust,
+                                      duttyGiroBlue - 250, duttyGiroBlue + 250);
+
+    // Update PWM outputs
+    setDuttyCycle(&pwmYellow);
+    setDuttyCycle(&pwmBlue);
+
+    // Store current error as last error for next derivative calculation
+    lastError = thetaError;
+}
+
+// Helper function to ensure PWM values are within specified limits
+int clamp(int value, int min, int max) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+}
+
