@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="timeBlueAvg"/>
+		<item key="selection" value="pwmYellow"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="timeBlueAvg"/>
+			<item value="pwmYellow"/>
+			<item value="countTimer"/>
+			<item value="tim3"/>
+			<item value="tim2"/>
+			<item value="BasicTimer2_Callback"/>
+			<item value="movex"/>
+			<item value="theta"/>
+			<item value="tetha"/>
+			<item value="4"/>
+			<item value="abs"/>
+			<item value="avgBlue"/>
+			<item value="3500"/>
+			<item value="calibra"/>
 			<item value="updatePosition"/>
-			<item value="timeywl"/>
-			<item value="newMoveBlue"/>
-			<item value="lastValBlue"/>
-			<item value="}"/>
-			<item value="counterYwlCounter"/>
-			<item value="timer2"/>
-			<item value="counterYellowE"/>
-			<item value="uint64"/>
-			<item value="uint"/>
-			<item value="counterYellowCounter"/>
-			<item value="counterYellowCounterL"/>
-			<item value="printcounterYwl"/>
-			<item value="start"/>
+			<item value="callback_extInt0"/>
 		</list>
 		<list key="replacehistory">
+			<item value="EXTERNAL_INTERRUPT_RISING_EDGE"/>
+			<item value="counterBlueJ"/>
+			<item value="vueltasYellow"/>
+			<item value="duttyCicle = start"/>
+			<item value="rxDataU1"/>
 			<item value="counterYellowT"/>
 			<item value="counterBlueCounter"/>
 			<item value="counterBlueCounterL"/>
@@ -35,16 +40,11 @@
 			<item value="pwmYellow"/>
 			<item value="pwmBlue"/>
 			<item value="pwmAzul"/>
-			<item value="pwmAmarillo"/>
-			<item value="dirPinBlue"/>
-			<item value="dirPinBLue"/>
-			<item value="dirPinYw"/>
-			<item value="dirYellowVal"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1086"/>
-		<item key="DIALOG_Y_ORIGIN" value="251"/>
+		<item key="DIALOG_X_ORIGIN" value="832"/>
+		<item key="DIALOG_Y_ORIGIN" value="338"/>
 		<item key="DIALOG_WIDTH" value="331"/>
 		<item key="DIALOG_HEIGHT" value="360"/>
 		<item key="DIALOG_FONT_NAME" value="1|Noto Sans|10.0|0|GTK|1|"/>

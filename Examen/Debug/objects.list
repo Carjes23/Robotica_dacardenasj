@@ -1,4 +1,0 @@
-"./App/Src/prueba2.o"
-"./Core/Src/syscalls.o"
-"./Core/Src/sysmem.o"
-"./Core/Startup/startup_stm32f411retx.o"

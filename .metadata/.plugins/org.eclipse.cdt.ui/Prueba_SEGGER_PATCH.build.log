@@ -1,10 +1,17 @@
-11:49:28 **** Incremental Build of configuration Debug for project Prueba_SEGGER_PATCH ****
+15:24:34 **** Build of configuration Debug for project Prueba_SEGGER_PATCH ****
 make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F411RE -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I../Inc -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Core/Include" -I"/home/daniel/Robotica/RTOS_workspace/Base_FreeRTOS/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/Prueba_SEGGER_PATCH/ThirdParty/SEGGER/SEGGER" -I"/home/daniel/Robotica/RTOS_workspace/Prueba_SEGGER_PATCH/ThirdParty/SEGGER/Config" -I"/home/daniel/Robotica/RTOS_workspace/Prueba_SEGGER_PATCH/ThirdParty/SEGGER/OS" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Prueba_SEGGER_PATCH.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/Prueba_SEGGER_PATCH/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Prueba_SEGGER_PATCH.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Prueba_SEGGER_PATCH.elf
+ 
 arm-none-eabi-size   Prueba_SEGGER_PATCH.elf 
+arm-none-eabi-objdump -h -S  Prueba_SEGGER_PATCH.elf  > "Prueba_SEGGER_PATCH.list"
    text	   data	    bss	    dec	    hex	filename
-  31952	    128	  81568	 113648	  1bbf0	Prueba_SEGGER_PATCH.elf
+  32008	    128	  81568	 113704	  1bc28	Prueba_SEGGER_PATCH.elf
 Finished building: default.size.stdout
  
+Finished building: Prueba_SEGGER_PATCH.list
+ 
 
-11:49:29 Build Finished. 0 errors, 0 warnings. (took 826ms)
+15:24:36 Build Finished. 0 errors, 0 warnings. (took 1s.831ms)
 
