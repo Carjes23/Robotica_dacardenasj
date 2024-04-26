@@ -151,7 +151,7 @@ float recorridoYellow;
 
 // Assuming these are global variables representing the robot's current state
 double x = 0.0, y = 0.0, theta = 0.0; // Position (x, y) and orientation theta
-float wheelbase = 11.0; // Distance between wheels
+float wheelbase = 10.5; // Distance between wheels
 uint16_t counter10seg = 0;
 uint8_t counter1seg = 0;
 float wheelsize = 5.7;
@@ -554,7 +554,16 @@ void parseCommands(char *ptrBufferReception) {
 void BasicTimer2_Callback(void) {
 
 	counterTimer2++;
-	counterTimer2++;
+	if (move90) {
+		updatePosition();
+		int aux = 61;
+		if (counterYwlCounter > aux || counterBlueCounter > aux) {
+			counterYwlCounter = 0;
+			counterBlueCounter = 0;
+			stop();
+			move90 = 0;
+		}
+	}
 
 }
 //Calback del timer3 para el blinking
@@ -573,12 +582,12 @@ void BasicTimer3_Callback(void) {
 			/ (counter10avg + 1.0f);
 	counter10avg++;
 
-	if (counter10avg >= 8 && onMove && initialCalibrate) {
+	if (counter10avg >= 8 && onMove && initialCalibrate && moves) {
 		updateMotorControl();  // Call the motor control update function
 		counter10avg = 0;      // Reset the counter for the next period
 	}
 
-	if (modoVueltas == 0) {
+	if (modoVueltas == 0 && move90 == 0 && onMove) {
 		updatePosition();
 		counterBlueLastIns = counterBlueCounter;
 		counterYellowLastIns = counterYwlCounter;
@@ -695,10 +704,10 @@ void updatePosition(void) {
 
 	theta += deltaTheta;
 
-	if ((theta >= rotate) && move90 == 1) {
-		stop();
-		move90 = 0;
-	}
+//	if ((theta >= rotate) && move90 == 1) {
+//		stop();
+//		move90 = 0;
+//	}
 
 	// Ensure theta stays within [-pi, pi]
 	if (theta > M_PI)
@@ -719,6 +728,20 @@ void updatePosition(void) {
 		moves = 0;
 	}
 }
+// Define global or static variables for PID control
+static double integralTheta = 0.0;  // Integral accumulator for angle
+static double lastThetaError = 0.0; // Last theta error for derivative calculation
+
+static double integralSpeed = 0.0;  // Integral accumulator for speed
+static double lastSpeedError = 0.0; // Last speed error for derivative calculation
+
+const double Kp_theta = 2000.0; // Proportional gain for angle
+const double Ki_theta = 50.0;    // Integral gain for angle
+const double Kd_theta = 500.0;   // Derivative gain for angle
+
+const double Kp_speed = 10.0;    // Proportional gain for speed
+const double Ki_speed = 0.5;     // Integral gain for speed
+const double Kd_speed = 2.0;     // Derivative gain for speed
 
 void stop(void) {
 	onMove = 0;
@@ -728,42 +751,53 @@ void stop(void) {
 	setDuttyCycle(&pwmBlue);
 	counterBlueLastIns = 0;
 	counterYellowLastIns = 0;
+	integralTheta = 0;
+	lastThetaError = 0.0;
+	integralSpeed = 0.0;  // Integral accumulator for speed
+	lastSpeedError = 0.0;
 }
 
-// Define global or static variables for PID control
-static double integral = 0.0;  // Integral accumulator
-static double lastError = 0.0; // Last theta error for derivative calculation
-const double Kp = 3000.0;      // Proportional gain, tuned to match theta range [-PI, PI] and PWM scale
-const double Ki = 50.0;        // Integral gain, adjust based on system response
-const double Kd = 500.0;       // Derivative gain, adjust based on system response
-
 void updateMotorControl() {
-    // Current theta error, assuming theta is updated elsewhere in the code
-    double thetaError = theta;
-    double derivative = thetaError - lastError;
-    integral += thetaError;  // Update integral with current error
+	// Angle control
+	double thetaError = theta; // assuming theta is updated elsewhere in the code
+	double derivativeTheta = thetaError - lastThetaError;
+	integralTheta += thetaError;
 
-    // Calculate adjustment using PID control
-    double adjust = (Kp * thetaError) + (Ki * integral) + (Kd * derivative);
+	double adjustTheta = (Kp_theta * thetaError) + (Ki_theta * integralTheta)
+			+ (Kd_theta * derivativeTheta);
 
-    // Apply the adjustment to PWM settings, making sure to stay within safe operational limits
-    pwmYellow.config.duttyCicle = clamp(pwmYellow.config.duttyCicle - (int) adjust,
-                                        duttyGiroYwl - 250, duttyGiroYwl + 250);
-    pwmBlue.config.duttyCicle = clamp(pwmBlue.config.duttyCicle + (int) adjust,
-                                      duttyGiroBlue - 250, duttyGiroBlue + 250);
+	// Speed control
+	double speedError = counterYwlCounter - counterBlueCounter;
+	double derivativeSpeed = speedError - lastSpeedError;
+	integralSpeed += speedError;
 
-    // Update PWM outputs
-    setDuttyCycle(&pwmYellow);
-    setDuttyCycle(&pwmBlue);
+	double adjustSpeed = (Kp_speed * speedError) + (Ki_speed * integralSpeed)
+			+ (Kd_speed * derivativeSpeed);
 
-    // Store current error as last error for next derivative calculation
-    lastError = thetaError;
+	// Adjust PWM settings for both motors
+	pwmYellow.config.duttyCicle = clamp(
+			pwmYellow.config.duttyCicle - (int) (adjustTheta - adjustSpeed),
+			duttyGiroYwl - 250, duttyGiroYwl + 250);
+
+	pwmBlue.config.duttyCicle = clamp(
+			pwmBlue.config.duttyCicle + (int) (adjustTheta + adjustSpeed),
+			duttyInBlue - 250, duttyInBlue + 250);
+
+	// Update PWM outputs
+	setDuttyCycle(&pwmYellow);
+	setDuttyCycle(&pwmBlue);
+
+	// Store current errors for next cycle's derivative calculations
+	lastThetaError = thetaError;
+	lastSpeedError = speedError;
 }
 
 // Helper function to ensure PWM values are within specified limits
 int clamp(int value, int min, int max) {
-    if (value < min) return min;
-    if (value > max) return max;
-    return value;
+	if (value < min)
+		return min;
+	if (value > max)
+		return max;
+	return value;
 }
 

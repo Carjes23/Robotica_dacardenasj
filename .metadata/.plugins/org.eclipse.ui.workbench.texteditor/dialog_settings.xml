@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="pwmYellow"/>
+		<item key="selection" value="wheelbase"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="pwmYellow"/>
-			<item value="countTimer"/>
-			<item value="tim3"/>
-			<item value="tim2"/>
-			<item value="BasicTimer2_Callback"/>
-			<item value="movex"/>
-			<item value="theta"/>
-			<item value="tetha"/>
-			<item value="4"/>
-			<item value="abs"/>
-			<item value="avgBlue"/>
-			<item value="3500"/>
-			<item value="calibra"/>
+			<item value="wheelbase"/>
+			<item value="calibrate"/>
+			<item value="duttyIYwl"/>
+			<item value="counter10seg"/>
+			<item value="basic"/>
+			<item value="counterBlueCounte"/>
+			<item value="counterBlueCounter"/>
+			<item value="if (initialCalibrate) {&#x0A;&#x09;&#x09;&#x09;&#x09;int change = 1;&#x0A;&#x09;&#x09;&#x09;&#x09;int aux = counterYwlCounter - counterBlueCounter;&#x0A;&#x09;&#x09;&#x09;&#x09;if (aux &gt; 1) {&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;aux = abs(aux);&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;duttyIYwl -= change * aux;&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;pwmYellow.config.duttyCicle = duttyIYwl;&#x0A;&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;duttyInBlue += change * aux;&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;pwmBlue.config.duttyCicle = duttyInBlue;&#x0A;&#x0A;&#x09;&#x09;&#x09;&#x09;} else if (aux &lt; -1) {&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;aux = abs(aux);&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;duttyIYwl += change * aux;&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;pwmYellow.config.duttyCicle = duttyIYwl;&#x0A;&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;duttyInBlue -= change * aux;&#x0A;&#x09;&#x09;&#x09;&#x09;&#x09;pwmBlue.config.duttyCicle = duttyInBlue;&#x0A;&#x0A;&#x09;&#x09;&#x09;&#x09;}"/>
+			<item value="4000"/>
+			<item value="3015"/>
+			<item value="deltaTheta"/>
 			<item value="updatePosition"/>
-			<item value="callback_extInt0"/>
+			<item value="update"/>
+			<item value="counterYwlCounterT"/>
+			<item value="stop"/>
 		</list>
 		<list key="replacehistory">
 			<item value="EXTERNAL_INTERRUPT_RISING_EDGE"/>
@@ -43,8 +43,8 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="832"/>
-		<item key="DIALOG_Y_ORIGIN" value="338"/>
+		<item key="DIALOG_X_ORIGIN" value="1014"/>
+		<item key="DIALOG_Y_ORIGIN" value="572"/>
 		<item key="DIALOG_WIDTH" value="331"/>
 		<item key="DIALOG_HEIGHT" value="360"/>
 		<item key="DIALOG_FONT_NAME" value="1|Noto Sans|10.0|0|GTK|1|"/>
