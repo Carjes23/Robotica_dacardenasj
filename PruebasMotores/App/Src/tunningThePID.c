@@ -36,6 +36,21 @@ void configPeripherals(void);
 void parseCommands(char *ptrBufferReception);
 void adjustPWMWithinRange(PWM_Handler_t *pwmHandler, int targetDutty,
 		int diffPWM);
+void logData(double adjustTheta, double adjustSpeed);
+
+double integralTheta = 0.0;  // Integral accumulator for angle
+double lastThetaError = 0.0; // Last theta error for derivative calculation
+
+double integralSpeed = 0.0;  // Integral accumulator for speed
+double lastSpeedError = 0.0; // Last speed error for derivative calculation
+
+double Kp_theta = 250.0; // Proportional gain for angle
+double Ki_theta = 0.0;    // Integral gain for angle
+double Kd_theta = 0.0;   // Derivative gain for angle
+
+double Kp_speed = 0.0;    // Proportional gain for speed
+double Ki_speed = 0.0;     // Integral gain for speed
+double Kd_speed = 0.0;     // Derivative gain for speed
 
 //Handler para el control de la terminal
 USART_Handler_t handlerTerminal = { 0 };
@@ -151,10 +166,10 @@ float recorridoYellow;
 
 // Assuming these are global variables representing the robot's current state
 double x = 0.0, y = 0.0, theta = 0.0; // Position (x, y) and orientation theta
-float wheelbase = 10.5; // Distance between wheels
+float wheelbase = 10.359; // Distance between wheels
 uint16_t counter10seg = 0;
 uint8_t counter1seg = 0;
-float wheelsize = 5.7;
+float wheelsize = 5.12;
 float rotate = M_PI / 2;
 uint8_t vueltasMsg = 1;
 uint8_t modoVueltas = 0;
@@ -413,8 +428,8 @@ void configPeripherals(void) {
 	handlerTimer2.ptrTIMx = TIM2; //El timer que se va a usar
 	handlerTimer2.TIMx_Config.TIMx_interruptEnable = 1; //Se habilitan las interrupciones
 	handlerTimer2.TIMx_Config.TIMx_mode = BTIMER_MODE_UP; //Se usara en modo ascendente
-	handlerTimer2.TIMx_Config.TIMx_period = 10; //Se define el periodo en este caso el led cambiara cada 250ms
-	handlerTimer2.TIMx_Config.TIMx_speed = 10; //Se define la "velocidad" que se usara
+	handlerTimer2.TIMx_Config.TIMx_period = 250; //Se define el periodo en este caso el led cambiara cada 250ms
+	handlerTimer2.TIMx_Config.TIMx_speed = BTIMER_SPEED_100us; //Se define la "velocidad" que se usara
 
 	BasicTimer_Config(&handlerTimer2); //Se carga la configuración.
 
@@ -544,16 +559,43 @@ void parseCommands(char *ptrBufferReception) {
 		onMove = 1;
 	}
 
+	else if (strcmp(cmd, "theta") == 0) {
+		Kp_theta = firstParameter;
+		Ki_theta = secondParameter;
+		Kd_theta = thirdParameter;
+	} else if (strcmp(cmd, "speed") == 0) {
+		Kp_speed = firstParameter;
+		Ki_speed = secondParameter;
+		Kd_speed = thirdParameter;
+	}
+
+	else if (strcmp(cmd, "calibrate") == 0) {
+		initialCalibrate = firstParameter;
+	}
+
+	else if (strcmp(cmd, "calibrate") == 0) {
+		stop();
+	}
+
 	else {
 		// Se imprime el mensaje "Wrong CMD" si la escritura no corresponde a los CMD implementados
 		writeString(&handlerConexion, "Wrong CMD \n");
 	}
 	firstParameter = 0;
+	secondParameter = 0;
+	thirdParameter = 0;
 
 }
 void BasicTimer2_Callback(void) {
 
 	counterTimer2++;
+	if (modoVueltas == 0 && move90 == 0 && onMove) {
+		updatePosition();
+		counterBlueLastIns = counterBlueCounter;
+		counterYellowLastIns = counterYwlCounter;
+		counterYwlCounter = 0;
+		counterBlueCounter = 0;
+	}
 	if (move90) {
 		updatePosition();
 		int aux = 61;
@@ -582,27 +624,20 @@ void BasicTimer3_Callback(void) {
 			/ (counter10avg + 1.0f);
 	counter10avg++;
 
-	if (counter10avg >= 8 && onMove && initialCalibrate && moves) {
+	if (counter10avg >= 5 * 2 && onMove && initialCalibrate && moves) {
 		updateMotorControl();  // Call the motor control update function
 		counter10avg = 0;      // Reset the counter for the next period
 	}
 
-	if (modoVueltas == 0 && move90 == 0 && onMove) {
-		updatePosition();
-		counterBlueLastIns = counterBlueCounter;
-		counterYellowLastIns = counterYwlCounter;
-		counterYwlCounter = 0;
-		counterBlueCounter = 0;
-	}
-
-	if (counter10seg > 4 * 3 - 1) {
+	if (counter10seg > 4 - 1 && onMove) {
 
 		sprintf(bufferData,
-				"%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.3f\t%.3f\t%d\t%d\n", x / 100,
-				y / 100, theta, (avgBlue), (avgYwl),
+				"%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.3f\t%.3f\t%d\t%d\t%.1f\t%.1f\t%.1f\t%.1f\t%.1f\t%.1f\n",
+				x / 100, y / 100, theta, (avgBlue), (avgYwl),
 				pwmBlue.config.duttyCicle / 100.0f,
 				pwmYellow.config.duttyCicle / 100.0f, (int) counterBlueCounterT,
-				(int) counterYwlCounterT);
+				(int) counterYwlCounterT, Kp_theta, Ki_theta, Kd_theta,
+				Kp_speed, Ki_speed, Kd_theta);
 		writeString(&handlerConexion, bufferData);
 		lastValBlue = avgBlue;
 		lastValYwl = avgYwl;
@@ -686,8 +721,8 @@ double getAverage(uint16_t arr[], int size) {
 void updatePosition(void) {
 	double dLeft, dRight, dCenter, deltaX, deltaY;
 
-	recorridoBlue = (counterBlueCounter) * M_PI * 5.1 / vueltasBlue;
-	recorridoYellow = (counterYwlCounter) * M_PI * 5.1 / vueltasYellow;
+	recorridoBlue = (counterBlueCounter) * M_PI * 5.117 / vueltasBlue;
+	recorridoYellow = (counterYwlCounter) * M_PI * 5.124 / vueltasYellow;
 
 	// Convert directions into forward (1) or backward (-1) multipliers
 	int multiplierBlue = (dirBlueVal == 0) ? 1 : -1;
@@ -728,20 +763,6 @@ void updatePosition(void) {
 		moves = 0;
 	}
 }
-// Define global or static variables for PID control
-static double integralTheta = 0.0;  // Integral accumulator for angle
-static double lastThetaError = 0.0; // Last theta error for derivative calculation
-
-static double integralSpeed = 0.0;  // Integral accumulator for speed
-static double lastSpeedError = 0.0; // Last speed error for derivative calculation
-
-const double Kp_theta = 2000.0; // Proportional gain for angle
-const double Ki_theta = 50.0;    // Integral gain for angle
-const double Kd_theta = 500.0;   // Derivative gain for angle
-
-const double Kp_speed = 10.0;    // Proportional gain for speed
-const double Ki_speed = 0.5;     // Integral gain for speed
-const double Kd_speed = 2.0;     // Derivative gain for speed
 
 void stop(void) {
 	onMove = 0;
@@ -767,21 +788,24 @@ void updateMotorControl() {
 			+ (Kd_theta * derivativeTheta);
 
 	// Speed control
-	double speedError = counterYwlCounter - counterBlueCounter;
+	double speedError = counterYwlCounterT - counterBlueCounterT;
 	double derivativeSpeed = speedError - lastSpeedError;
 	integralSpeed += speedError;
 
 	double adjustSpeed = (Kp_speed * speedError) + (Ki_speed * integralSpeed)
 			+ (Kd_speed * derivativeSpeed);
 
-	// Adjust PWM settings for both motors
-	pwmYellow.config.duttyCicle = clamp(
-			pwmYellow.config.duttyCicle - (int) (adjustTheta - adjustSpeed),
-			duttyGiroYwl - 250, duttyGiroYwl + 250);
+	uint16_t limit = 500;
 
-	pwmBlue.config.duttyCicle = clamp(
-			pwmBlue.config.duttyCicle + (int) (adjustTheta + adjustSpeed),
-			duttyInBlue - 250, duttyInBlue + 250);
+	uint16_t aux = clamp(
+			pwmYellow.config.duttyCicle - (int) (adjustTheta + adjustSpeed),
+			duttyIYwl - limit, duttyIYwl + limit);
+
+	// Adjust PWM settings for both motors
+	pwmYellow.config.duttyCicle = aux;
+	aux = clamp(pwmBlue.config.duttyCicle + (int) (adjustTheta + adjustSpeed),
+			duttyInBlue - limit, duttyInBlue + limit);
+	pwmBlue.config.duttyCicle = aux;
 
 	// Update PWM outputs
 	setDuttyCycle(&pwmYellow);

@@ -66,7 +66,7 @@ GPIO_Handler_t tx2pin = { 0 };	//Pin para configurar la trasmision del USART2
 GPIO_Handler_t rx2pin = { 0 };	//Pin para configurar la recepcion del USART2
 
 #define STACK_SIZE 200;
-#define start 100
+#define start 2730
 float start2 = 99.0f;
 void vTaskOne(void *pvParameters);
 void vTaskTwo(void *pvParameters);
@@ -126,8 +126,8 @@ int PC0Counter = 0;
 
 uint16_t prescaler = 400;
 uint16_t periodo = 10000;
-uint16_t duttyInBlue = 3237; //250  //350 32.370 30.190
-uint16_t duttyIYwl = 3015; //3780; //264//364
+uint16_t duttyInBlue = 3354; //250  //350 32.370 30.190
+uint16_t duttyIYwl = 3269;
 
 uint16_t duttyGiroBlue = 3237; //250  //350
 uint16_t duttyGiroYwl = 3015; //264//364
@@ -151,10 +151,10 @@ float recorridoYellow;
 
 // Assuming these are global variables representing the robot's current state
 double x = 0.0, y = 0.0, theta = 0.0; // Position (x, y) and orientation theta
-float wheelbase = 10.5; // Distance between wheels
+float wheelbase = 10.4; // Distance between wheels
 uint16_t counter10seg = 0;
 uint8_t counter1seg = 0;
-float wheelsize = 5.7;
+float wheelsize = 5.12;
 float rotate = M_PI / 2;
 uint8_t vueltasMsg = 1;
 uint8_t modoVueltas = 0;
@@ -162,6 +162,7 @@ uint8_t modoVueltas = 0;
 uint16_t timeBlueArray[100] = { 0 };
 uint16_t timeYellowArray[100] = { 0 };
 float timeBlueAvg, timeYwlAvg = 0;
+float slopeMotors = 2.36;
 
 bool newMoveBlue, newMoveYellow;
 bool calibrate = 0;
@@ -405,7 +406,7 @@ void configPeripherals(void) {
 	handlerTimer3.ptrTIMx = TIM3; //El timer que se va a usar
 	handlerTimer3.TIMx_Config.TIMx_interruptEnable = 1; //Se habilitan las interrupciones
 	handlerTimer3.TIMx_Config.TIMx_mode = BTIMER_MODE_UP; //Se usara en modo ascendente
-	handlerTimer3.TIMx_Config.TIMx_period = 500; //Se define el periodo en este caso el led cambiara cada 250ms
+	handlerTimer3.TIMx_Config.TIMx_period = 2500; //Se define el periodo en este caso el led cambiara cada 250ms
 	handlerTimer3.TIMx_Config.TIMx_speed = BTIMER_SPEED_100us; //Se define la "velocidad" que se usara
 
 	BasicTimer_Config(&handlerTimer3); //Se carga la configuración.
@@ -554,60 +555,39 @@ void parseCommands(char *ptrBufferReception) {
 void BasicTimer2_Callback(void) {
 
 	counterTimer2++;
-	if (move90) {
-		updatePosition();
-		int aux = 61;
-		if (counterYwlCounter > aux || counterBlueCounter > aux) {
-			counterYwlCounter = 0;
-			counterBlueCounter = 0;
-			stop();
-			move90 = 0;
-		}
-	}
 
 }
 //Calback del timer3 para el blinking
 void BasicTimer3_Callback(void) {
-	counter250ms++;
-	if (counter250ms >= 5) {
-		GPIOxTooglePin(&ledUsuario);
-		counter10seg++;
+	GPIOxTooglePin(&ledUsuario);
+	if (counter250ms == 6) {
 		counter250ms = 0;
-	}
-
-	avgBlue = (avgBlue * counter10avg + counterBlueCounter)
-			/ (counter10avg + 1.0f);
-
-	avgYwl = (avgYwl * counter10avg + counterYwlCounter)
-			/ (counter10avg + 1.0f);
-	counter10avg++;
-
-	if (counter10avg >= 8 && onMove && initialCalibrate && moves) {
-		updateMotorControl();  // Call the motor control update function
-		counter10avg = 0;      // Reset the counter for the next period
-	}
-
-	if (modoVueltas == 0 && move90 == 0 && onMove) {
-		updatePosition();
-		counterBlueLastIns = counterBlueCounter;
-		counterYellowLastIns = counterYwlCounter;
-		counterYwlCounter = 0;
-		counterBlueCounter = 0;
-	}
-
-	if (counter10seg > 4 * 3 - 1) {
-
-		sprintf(bufferData,
-				"%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.3f\t%.3f\t%d\t%d\n", x / 100,
-				y / 100, theta, (avgBlue), (avgYwl),
+		sprintf(bufferData, "%.3f\t%.3f\t%d\t%d\n",
 				pwmBlue.config.duttyCicle / 100.0f,
-				pwmYellow.config.duttyCicle / 100.0f, (int) counterBlueCounterT,
-				(int) counterYwlCounterT);
+				pwmYellow.config.duttyCicle / 100.0f, (int) counterBlueCounter,
+				(int) counterYwlCounter);
 		writeString(&handlerConexion, bufferData);
-		lastValBlue = avgBlue;
-		lastValYwl = avgYwl;
-		counter10seg = 0;
+		// Adjust PWM settings for both motors
+//		if (pwmYellow.config.duttyCicle < 3515) {
+//			pwmYellow.config.duttyCicle += 5;
+//			pwmBlue.config.duttyCicle += 5;
+//		} else {
+//			pwmYellow.config.duttyCicle = start;
+//			pwmBlue.config.duttyCicle = start;
+//		}
+		pwmYellow.config.duttyCicle = duttyIYwl;
+		pwmBlue.config.duttyCicle = duttyInBlue;
+
+		// Update PWM outputs
+		setDuttyCycle(&pwmYellow);
+		setDuttyCycle(&pwmBlue);
+
 	}
+	if (counter250ms == 2) {
+		counterBlueCounter = 0;
+		counterYwlCounter = 0;
+	}
+	counter250ms++;
 
 }
 
@@ -645,26 +625,12 @@ void callback_extInt7(void) {
 void callback_extInt1(void) {
 	counterYwlCounterT++;
 	counterYwlCounter++;
-	if (modoVueltas == 1) {
-		if (counterYwlCounter >= vueltasYellow * vueltasMsg) {
-			counterYwlCounter = 0;
-			stop();
-			modoVueltas = 3;
-		}
-	}
 
 }
 
 void callback_extInt3(void) {
 	counterBlueCounterT++;
 	counterBlueCounter++;
-	if (modoVueltas == 2) {
-		if (counterBlueCounter >= vueltasBlue * vueltasMsg) {
-			counterBlueCounter = 0;
-			stop();
-			modoVueltas = 3;
-		}
-	}
 
 }
 
@@ -774,14 +740,16 @@ void updateMotorControl() {
 	double adjustSpeed = (Kp_speed * speedError) + (Ki_speed * integralSpeed)
 			+ (Kd_speed * derivativeSpeed);
 
+	uint16_t limit = 200;
+
 	// Adjust PWM settings for both motors
 	pwmYellow.config.duttyCicle = clamp(
 			pwmYellow.config.duttyCicle - (int) (adjustTheta - adjustSpeed),
-			duttyGiroYwl - 250, duttyGiroYwl + 250);
+			duttyIYwl - limit, duttyIYwl + limit);
 
 	pwmBlue.config.duttyCicle = clamp(
 			pwmBlue.config.duttyCicle + (int) (adjustTheta + adjustSpeed),
-			duttyInBlue - 250, duttyInBlue + 250);
+			duttyInBlue - limit, duttyInBlue + limit);
 
 	// Update PWM outputs
 	setDuttyCycle(&pwmYellow);
@@ -791,6 +759,8 @@ void updateMotorControl() {
 	lastThetaError = thetaError;
 	lastSpeedError = speedError;
 }
+
+
 
 // Helper function to ensure PWM values are within specified limits
 int clamp(int value, int min, int max) {
