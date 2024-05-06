@@ -192,7 +192,7 @@ void updatePosition(void);
 void stop(void);
 double deltaTheta = 0;
 
-int main(void) {
+int main(void) {theta 400 50 20 @
 	//yellow 0, blue 1
 
 	configPeripherals();
@@ -573,7 +573,7 @@ void parseCommands(char *ptrBufferReception) {
 		initialCalibrate = firstParameter;
 	}
 
-	else if (strcmp(cmd, "calibrate") == 0) {
+	else if (strcmp(cmd, "stop") == 0) {
 		stop();
 	}
 
@@ -624,7 +624,7 @@ void BasicTimer3_Callback(void) {
 			/ (counter10avg + 1.0f);
 	counter10avg++;
 
-	if (counter10avg >= 5 * 2 && onMove && initialCalibrate && moves) {
+	if (counter10avg >= 5 * 4 && onMove && initialCalibrate && moves) {
 		updateMotorControl();  // Call the motor control update function
 		counter10avg = 0;      // Reset the counter for the next period
 	}
