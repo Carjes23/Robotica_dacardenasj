@@ -44,13 +44,13 @@ double lastThetaError = 0.0; // Last theta error for derivative calculation
 double integralSpeed = 0.0;  // Integral accumulator for speed
 double lastSpeedError = 0.0; // Last speed error for derivative calculation
 
-double Kp_theta = 250.0; // Proportional gain for angle
-double Ki_theta = 0.0;    // Integral gain for angle
-double Kd_theta = 0.0;   // Derivative gain for angle
+double Kp_theta = 0.0;//918.5; // Proportional gain for angle
+double Ki_theta = 0.0;//.5;    // Integral gain for angle
+double Kd_theta = 0.0;//362.5;   // Derivative gain for angle
 
-double Kp_speed = 0.0;    // Proportional gain for speed
-double Ki_speed = 0.0;     // Integral gain for speed
-double Kd_speed = 0.0;     // Derivative gain for speed
+double Kp_speed = 0.18;    // Proportional gain for speed
+double Ki_speed = 0.03;     // Integral gain for speed
+double Kd_speed = 0.01;     // Derivative gain for speed
 
 //Handler para el control de la terminal
 USART_Handler_t handlerTerminal = { 0 };
@@ -192,7 +192,7 @@ void updatePosition(void);
 void stop(void);
 double deltaTheta = 0;
 
-int main(void) {theta 400 50 20 @
+int main(void) {
 	//yellow 0, blue 1
 
 	configPeripherals();
@@ -624,7 +624,7 @@ void BasicTimer3_Callback(void) {
 			/ (counter10avg + 1.0f);
 	counter10avg++;
 
-	if (counter10avg >= 5 * 4 && onMove && initialCalibrate && moves) {
+	if (counter10avg >= 5 * 2 && onMove && initialCalibrate && moves) {
 		updateMotorControl();  // Call the motor control update function
 		counter10avg = 0;      // Reset the counter for the next period
 	}
@@ -632,12 +632,12 @@ void BasicTimer3_Callback(void) {
 	if (counter10seg > 4 - 1 && onMove) {
 
 		sprintf(bufferData,
-				"%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.3f\t%.3f\t%d\t%d\t%.1f\t%.1f\t%.1f\t%.1f\t%.1f\t%.1f\n",
+				"%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.3f\t%.3f\t%d\t%d\t%.1f\t%.1f\t%.1f\t%.4f\t%.4f\t%.4f\n",
 				x / 100, y / 100, theta, (avgBlue), (avgYwl),
 				pwmBlue.config.duttyCicle / 100.0f,
 				pwmYellow.config.duttyCicle / 100.0f, (int) counterBlueCounterT,
 				(int) counterYwlCounterT, Kp_theta, Ki_theta, Kd_theta,
-				Kp_speed, Ki_speed, Kd_theta);
+				Kp_speed, Ki_speed, Kd_speed);
 		writeString(&handlerConexion, bufferData);
 		lastValBlue = avgBlue;
 		lastValYwl = avgYwl;
@@ -788,7 +788,7 @@ void updateMotorControl() {
 			+ (Kd_theta * derivativeTheta);
 
 	// Speed control
-	double speedError = counterYwlCounterT - counterBlueCounterT;
+	double speedError = counterYwlCounter - counterBlueCounter;
 	double derivativeSpeed = speedError - lastSpeedError;
 	integralSpeed += speedError;
 
