@@ -47,7 +47,7 @@ void i2c_config(I2C_Handler_t *ptrHandlerI2C) {
 	// PLCK1 FRECUENCY in MHz se divide entre dos si es mayor a 50 mhz
 	uint16_t freq = getFreqPLL();
 	if (freq > 50) {
-		freq = 16;
+		freq /= 2;
 	}
 
 	ptrHandlerI2C->ptrI2Cx->CR2 &= ~(0b111111 << I2C_CR2_FREQ_Pos);	// Borramos la configuración actual

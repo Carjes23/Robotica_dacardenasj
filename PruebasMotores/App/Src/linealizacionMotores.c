@@ -27,8 +27,11 @@
 #include "PwmDriver.h"
 #include <math.h>
 #include "stdlib.h"
+#include "I2CxDriver.h"
 
 //pc7
+
+I2C_Handler_t pruebaAccel = {0};
 
 #include "ExtiDriver.h"
 
@@ -418,6 +421,11 @@ void configPeripherals(void) {
 	handlerTimer2.TIMx_Config.TIMx_speed = 10; //Se define la "velocidad" que se usara
 
 	BasicTimer_Config(&handlerTimer2); //Se carga la configuración.
+
+	pruebaAccel.ptrI2Cx = I2C1;
+	pruebaAccel.modeI2C = I2C_MODE_FM;
+
+	i2c_config(pruebaAccel);
 
 }
 

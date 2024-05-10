@@ -27,8 +27,13 @@
 #include "PwmDriver.h"
 #include <math.h>
 #include "stdlib.h"
+#include "I2CxDriver.h"
+#include "MPU6050.h"
+#include "SysTick.h"
 
 //pc7
+
+I2C_Handler_t pruebaAccel = { 0 };
 
 #include "ExtiDriver.h"
 
@@ -44,12 +49,12 @@ double lastThetaError = 0.0; // Last theta error for derivative calculation
 double integralSpeed = 0.0;  // Integral accumulator for speed
 double lastSpeedError = 0.0; // Last speed error for derivative calculation
 
-double Kp_theta = 0.0;//918.5; // Proportional gain for angle
-double Ki_theta = 0.0;//.5;    // Integral gain for angle
-double Kd_theta = 0.0;//362.5;   // Derivative gain for angle
+double Kp_theta = 0.0; //918.5; // Proportional gain for angle
+double Ki_theta = 0.0; //.5;    // Integral gain for angle
+double Kd_theta = 0.0; //362.5;   // Derivative gain for angle
 
-double Kp_speed = 0.18;    // Proportional gain for speed
-double Ki_speed = 0.03;     // Integral gain for speed
+double Kp_speed = 0.19;    // Proportional gain for speed
+double Ki_speed = 0.035;     // Integral gain for speed
 double Kd_speed = 0.01;     // Derivative gain for speed
 
 //Handler para el control de la terminal
@@ -93,6 +98,7 @@ GPIO_Handler_t ledUsuario;
 GPIO_Handler_t pwprueba;
 int clamp(int value, int min, int max);
 void updateMotorControl();
+float getMeasure(void);
 
 /*Definición de variables del sistema*/
 
@@ -155,6 +161,12 @@ bool upMode = 0;
 
 GPIO_Handler_t dirPinYw;
 GPIO_Handler_t dirPinBlue;
+GPIO_Handler_t mpu6050_sdaPin = { 0 };      // Pin SDA del MPU6050
+GPIO_Handler_t mpu6050_sclPin = { 0 };      // Pin SCL del MPU6050
+
+// Handler del MPU6050 (sensor) usando I2C
+I2C_Handler_t i2c1_mpu6050 = { 0 };
+float currentOffset = 0;
 
 bool dir = 0;
 bool moves = 0;
@@ -186,21 +198,74 @@ uint8_t vueltas = 1;
 uint8_t vueltasYellow = 120;
 uint8_t vueltasBlue = 120;
 uint8_t counter10avg, counter250ms = 0;
+uint8_t accelActivate = 0;
+
+bool measure = 0;
+int measureCount = 0;
+float sumGyroOffset = 0;
+float gyroZ = 0;
 
 float avgBlue, avgYwl = 0;
 void updatePosition(void);
 void stop(void);
 double deltaTheta = 0;
+double thetaG = 0;
+
+/* Para rediccionar el printf() por USART2 */
+int __io_putchar(int ch) {
+
+	// Se envía el caracter por USART2
+	writeChar(&handlerConexion, (char) ch);
+	return ch;
+}
 
 int main(void) {
 	//yellow 0, blue 1
 
 	configPeripherals();
 
+	delay_ms(1000);
+
+	//Realizamos la calibración.
+	i2c_writeSingleRegister(&i2c1_mpu6050, PWR_MGMT_1, 0x00);
+	uint8_t mpuErr = i2c_readSingleRegister(&i2c1_mpu6050, PWR_MGMT_1);
+	if (mpuErr) {
+		printf("Error al inicializar el MPU. Revisar la conexion\n\r");
+		while (1)
+			;
+	} else {
+		printf("MPU6050 Inicializado correctamente\n\r");
+		accelActivate = 1;
+	}
+
 	/* Loop forever */
 	while (1) {
 		/* SI llegamos es que algo salio mal... */
 		/* El caracter '@' nos indica que es el final de la cadena*/
+		if (accelActivate == 1) {
+			if (measure) {
+				if (measureCount < 50) {
+					gyroZ = getMeasure();
+					sumGyroOffset += gyroZ;
+					measureCount++;
+				} else if (measureCount == 50) {
+					currentOffset = sumGyroOffset / 50.0f;
+					measureCount++;
+				} else if (measureCount < 60) {
+					gyroZ = getMeasure() ;
+					if (fabs(gyroZ) > 20) { // Reduced threshold for finer control
+						printf("Calibration continues\n");
+						measureCount = 0;
+						sumGyroOffset = 0;
+					} else {
+						accelActivate = 2;
+						printf("MPU calibrated\n");
+					}
+					measureCount++;
+				}
+				measure = 0;
+			}
+		}
 
 		if (rxDataU1 != '\0') {
 
@@ -264,6 +329,38 @@ void configPeripherals(void) {
 	SCB->CPACR |= (0xF << 20);
 
 	configPLL(100);
+
+	config_SysTick();
+
+	/* Configuración de los pines sobre los que funciona el I2C1 */
+	// SCL
+	mpu6050_sclPin.pGPIOx = GPIOB;
+	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinNumber = PIN_8;
+	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_ALTFN;
+	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinOPType = GPIO_OTYPE_OPENDRAIN;
+	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinPuPdControl = GPIO_PUPDR_NOTHING;
+	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinSpeed = GPIO_OSPEED_FAST;
+	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinAltFunMode = AF4;
+
+	GPIO_Config(&mpu6050_sclPin);
+
+	// SDA
+	mpu6050_sdaPin.pGPIOx = GPIOB;
+	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinNumber = PIN_9;
+	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_ALTFN;
+	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinOPType = GPIO_OTYPE_OPENDRAIN;
+	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinPuPdControl = GPIO_PUPDR_NOTHING;
+	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinSpeed = GPIO_OSPEED_FAST;
+	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinAltFunMode = AF4;
+
+	GPIO_Config(&mpu6050_sdaPin);
+
+	/* Configuración I2C1 */
+	i2c1_mpu6050.ptrI2Cx = I2C1;
+	i2c1_mpu6050.modeI2C = I2C_MODE_FM;
+	i2c1_mpu6050.slaveAddress = 0b1101000; 	// Dirección del slave. AD0 --> GND
+
+	i2c_config(&i2c1_mpu6050);
 
 	ledUsuario.pGPIOx = GPIOC;
 	ledUsuario.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_OUT;
@@ -428,7 +525,7 @@ void configPeripherals(void) {
 	handlerTimer2.ptrTIMx = TIM2; //El timer que se va a usar
 	handlerTimer2.TIMx_Config.TIMx_interruptEnable = 1; //Se habilitan las interrupciones
 	handlerTimer2.TIMx_Config.TIMx_mode = BTIMER_MODE_UP; //Se usara en modo ascendente
-	handlerTimer2.TIMx_Config.TIMx_period = 250; //Se define el periodo en este caso el led cambiara cada 250ms
+	handlerTimer2.TIMx_Config.TIMx_period = 2500; //Se define el periodo en este caso el led cambiara cada 250ms
 	handlerTimer2.TIMx_Config.TIMx_speed = BTIMER_SPEED_100us; //Se define la "velocidad" que se usara
 
 	BasicTimer_Config(&handlerTimer2); //Se carga la configuración.
@@ -576,6 +673,9 @@ void parseCommands(char *ptrBufferReception) {
 	else if (strcmp(cmd, "stop") == 0) {
 		stop();
 	}
+	else if (strcmp(cmd, "reset") == 0) {
+			thetaG = 0;
+		}
 
 	else {
 		// Se imprime el mensaje "Wrong CMD" si la escritura no corresponde a los CMD implementados
@@ -610,6 +710,18 @@ void BasicTimer2_Callback(void) {
 }
 //Calback del timer3 para el blinking
 void BasicTimer3_Callback(void) {
+	if (accelActivate == 1) {
+		measure = 1;
+	} else if (accelActivate == 2) {
+		gyroZ = getMeasure();
+		if(fabs(gyroZ)<1.0f){
+			gyroZ = 0;
+		}
+		thetaG += gyroZ * 0.05f;
+		sprintf(bufferData, "%.3f\n", thetaG);
+		writeString(&handlerConexion, bufferData);
+	}
+
 	counter250ms++;
 	if (counter250ms >= 5) {
 		GPIOxTooglePin(&ledUsuario);
@@ -825,3 +937,8 @@ int clamp(int value, int min, int max) {
 	return value;
 }
 
+
+float getMeasure(void)
+{
+	return (mpu6050_readGyroZ(&i2c1_mpu6050))/131.0f - currentOffset ;
+}
