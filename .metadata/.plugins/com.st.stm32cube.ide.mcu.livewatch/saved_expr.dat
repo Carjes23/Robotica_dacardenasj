@@ -6,3 +6,9 @@ vueltasBlue
 vueltasYellow
 duttyInBlue
 duttyIYwl
+i2c1_mpu6050
+measureCount
+sumGyroOffset
+bufferData
+gyroZ
+currentOffset
