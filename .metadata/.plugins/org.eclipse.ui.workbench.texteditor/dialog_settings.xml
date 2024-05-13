@@ -1,52 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="sumGyroOffset"/>
+		<item key="selection" value="Theta"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="sumGyroOffset"/>
-			<item value="i2c_"/>
-			<item value="i2c"/>
-			<item value="i2c_writeSingleRegister"/>
-			<item value="i2c_sendSlaveAddresRW"/>
-			<item value="handlerCon"/>
-			<item value="handlerTerminal"/>
-			<item value="__io_putchar"/>
-			<item value="who"/>
-			<item value="speed"/>
-			<item value="freq"/>
-			<item value="extint"/>
-			<item value="updatePosition"/>
-			<item value="wheel"/>
-			<item value="integralTheta"/>
+			<item value="theta"/>
+			<item value="ki"/>
+			<item value="gyroZOffser"/>
+			<item value="currentOffset"/>
+			<item value="getMeasure"/>
+			<item value="gyroZ"/>
+			<item value="."/>
+			<item value="lastValBlue"/>
+			<item value="last"/>
+			<item value="START"/>
+			<item value="start"/>
+			<item value="counterContro"/>
+			<item value="counterControl"/>
+			<item value="counter10avg"/>
+			<item value="counter10seg"/>
 		</list>
 		<list key="replacehistory">
-			<item value="EXTERNAL_INTERRUPT_RISING_EDGE"/>
-			<item value="counterBlueJ"/>
-			<item value="vueltasYellow"/>
-			<item value="duttyCicle = start"/>
-			<item value="rxDataU1"/>
-			<item value="counterYellowT"/>
-			<item value="counterBlueCounter"/>
-			<item value="counterBlueCounterL"/>
-			<item value="printcounterBlue"/>
-			<item value="counterYwl"/>
-			<item value="counterBlue"/>
-			<item value="counterYellow"/>
-			<item value="pwmYellow"/>
-			<item value="pwmBlue"/>
-			<item value="pwmAzul"/>
+			<item value="gyroZOffset"/>
+			<item value="gyroZOffser"/>
+			<item value="getGyroZMeasure"/>
+			<item value="counterControl"/>
+			<item value="pin_PWMConfig"/>
+			<item value="pin_PWMConfif"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1194"/>
-		<item key="DIALOG_Y_ORIGIN" value="633"/>
-		<item key="DIALOG_WIDTH" value="331"/>
-		<item key="DIALOG_HEIGHT" value="360"/>
-		<item key="DIALOG_FONT_NAME" value="1|Noto Sans|10.0|0|GTK|1|"/>
+		<item key="DIALOG_X_ORIGIN" value="1082"/>
+		<item key="DIALOG_Y_ORIGIN" value="397"/>
+		<item key="DIALOG_WIDTH" value="414"/>
+		<item key="DIALOG_HEIGHT" value="454"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
 </section>

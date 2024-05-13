@@ -103,7 +103,7 @@ C_DEPS += \
 
 # Each subdirectory must supply rules for building sources it contributes
 Src/ComplexMathFunctions/%.o Src/ComplexMathFunctions/%.su: ../Src/ComplexMathFunctions/%.c Src/ComplexMathFunctions/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I../Inc -I/home/daniel/Documents/CMSIS-repo/en.stm32cubef4_v1-27-0/STM32Cube_FW_F4_V1.27.0/Drivers/CMSIS/Core/Include -I/home/daniel/Documents/CMSIS-repo/en.stm32cubef4_v1-27-0/STM32Cube_FW_F4_V1.27.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I../Inc -I"C:/Users/DANIE/OneDrive/Documents/GitHub/Robotica_dacardenasj/CMSIS-Full/Drivers/Device/ST/STM32F4xx/Include" -I"C:/Users/DANIE/OneDrive/Documents/GitHub/Robotica_dacardenasj/CMSIS-Full/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
 clean: clean-Src-2f-ComplexMathFunctions
 

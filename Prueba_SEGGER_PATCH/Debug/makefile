@@ -67,8 +67,8 @@ all: main-build
 main-build: Prueba_SEGGER_PATCH.elf secondary-outputs
 
 # Tool invocations
-Prueba_SEGGER_PATCH.elf Prueba_SEGGER_PATCH.map: $(OBJS) $(USER_OBJS) /home/daniel/Robotica/RTOS_workspace/Prueba_SEGGER_PATCH/STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Prueba_SEGGER_PATCH.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/Prueba_SEGGER_PATCH/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Prueba_SEGGER_PATCH.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Prueba_SEGGER_PATCH.elf Prueba_SEGGER_PATCH.map: $(OBJS) $(USER_OBJS) C:\Users\DANIE\OneDrive\Documents\GitHub\Robotica_dacardenasj\Prueba_SEGGER_PATCH\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Prueba_SEGGER_PATCH.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\DANIE\OneDrive\Documents\GitHub\Robotica_dacardenasj\Prueba_SEGGER_PATCH\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Prueba_SEGGER_PATCH.map" -Wl,--gc-sections -static -L"C:\Users\DANIE\OneDrive\Documents\GitHub\Robotica_dacardenasj\CMSIS-PeripheralDrivers\Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

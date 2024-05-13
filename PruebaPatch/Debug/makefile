@@ -65,8 +65,8 @@ all: main-build
 main-build: PruebaPatch.elf secondary-outputs
 
 # Tool invocations
-PruebaPatch.elf PruebaPatch.map: $(OBJS) $(USER_OBJS) /home/daniel/Robotica/RTOS_workspace/PruebaPatch/STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "PruebaPatch.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebaPatch/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebaPatch.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+PruebaPatch.elf PruebaPatch.map: $(OBJS) $(USER_OBJS) C:\Users\DANIE\OneDrive\Documents\GitHub\Robotica_dacardenasj\PruebaPatch\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "PruebaPatch.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\DANIE\OneDrive\Documents\GitHub\Robotica_dacardenasj\PruebaPatch\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebaPatch.map" -Wl,--gc-sections -static -L"C:\Users\DANIE\OneDrive\Documents\GitHub\Robotica_dacardenasj\CMSIS-PeripheralDrivers\Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
