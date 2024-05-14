@@ -47,18 +47,15 @@ void parseCommands(char *ptrBufferReception);
 void configPeripherals(void);
 int clamp(int value, int min, int max);
 void updateMotorControl();
-float getGyroZMeasure(void);
-float getAccelXMeasure(void);
-float getAccelYMeasure(void);
 void getAccelMeasure(int16_t *array);
 
 // PID constants
 double integralTheta = 0.0; // Integral accumulator for angle
 double lastThetaError = 0.0; // Last theta error for derivative calculation
 
-double Kp_theta = 9.8; // Proportional gain for angle
-double Ki_theta = 0.1; // Integral gain for angle
-double Kd_theta = 1.25; // Derivative gain for angle
+double Kp_theta = 7.5; // Proportional gain for angle
+double Ki_theta = 0.08; // Integral gain for angle
+double Kd_theta = 2.25; // Derivative gain for angle
 
 // General handlers
 GPIO_Handler_t ledUsuario; // LED user handler
@@ -78,7 +75,7 @@ PWM_Handler_t pwmYellow = { 0 }; // PWM yellow handler
 bool dirBlueVal = 0; // Blue direction value
 
 // Other variables
-uint16_t prescaler = 400;
+uint16_t prescaler = 40;
 uint16_t periodo = 10000;
 uint16_t duttyInBlue = 3237; // 250; //350 32.370 30.190
 uint16_t duttyIYwl = 3015; // 3780; //264//364
@@ -153,7 +150,7 @@ GPIO_Handler_t mpu6050_sclPin = { 0 }; // Pin SCL of MPU6050
 // Handler for MPU6050 (sensor) using I2C
 I2C_Handler_t i2c1_mpu6050 = { 0 };
 float gyroZOffset = 0;
-int16_t accelX, accelY = 0;
+float accelX, accelY = 0;
 
 // Global variables representing the robot's current state
 double x = 0.0, y = 0.0, theta = 0.0; // Position (x, y) and orientation theta
@@ -164,7 +161,6 @@ float wheelsize = 5.12;
 float rotate = M_PI / 2;
 uint8_t vueltasMsg = 1;
 uint8_t modoVueltas = 0;
-
 
 bool newMoveBlue, newMoveYellow;
 bool calibrate = 0;
@@ -187,7 +183,9 @@ float accelYOffset = 0;
 float sumAccelXOffset = 0;
 float sumAccelYOffset = 0;
 int accelMeasureCount = 0;
-int16_t accelMeasurements[2] = {0};
+int16_t accelMeasurements[3] = { 0 };
+uint8_t regsToRead[6] = { ACCEL_XOUT_H, ACCEL_XOUT_L, ACCEL_YOUT_H,
+ACCEL_YOUT_L, GYRO_ZOUT_H, GYRO_ZOUT_L };
 
 float avgBlue, avgYwl = 0;
 void updatePosition(void);
@@ -233,13 +231,12 @@ int main(void) {
 		// Calibration mode
 		if (accelActivate == 1) {
 			if (measure) {
-				float aux = 200.0f;
+				float aux = 150.0f;
 				if (measureCount < aux) {
 					getAccelMeasure(accelMeasurements);
 					sumAccelXOffset += accelX;
 					sumAccelYOffset += accelY;
 
-					gyroZ = getGyroZMeasure();
 					sumGyroOffset += gyroZ;
 					measureCount++;
 				} else if (measureCount == aux) {
@@ -250,9 +247,8 @@ int main(void) {
 					measureCount++;
 				} else if (measureCount < aux * 1.5f) {
 					getAccelMeasure(accelMeasurements);
-					gyroZ = getGyroZMeasure();
-					if (fabs(accelX - accelXOffset) > 0.3
-							|| fabs(accelY - accelYOffset) > 0.3) {
+					if (fabs(accelX) > 0.3f || fabs(accelY) > 0.3f
+							|| fabs(gyroZ) > 0.4f) {
 						printf("Calibration continues\n");
 						measureCount = 0;
 						sumAccelXOffset = 0;
@@ -339,8 +335,10 @@ void configPeripherals(void) {
 	mpu6050_sclPin.pGPIOx = GPIOB;
 	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinNumber = PIN_8;
 	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_ALTFN; // Alternate function mode
-	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinOPType = GPIO_OTYPE_OPENDRAIN; // Open-drain output
-	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinPuPdControl = GPIO_PUPDR_NOTHING; // No pull-up/pull-down
+	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinOPType =
+	GPIO_OTYPE_OPENDRAIN; // Open-drain output
+	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinPuPdControl =
+	GPIO_PUPDR_NOTHING; // No pull-up/pull-down
 	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinSpeed = GPIO_OSPEED_FAST; // Fast output speed
 	mpu6050_sclPin.GPIO_PinConfig_t.GPIO_PinAltFunMode = AF4; // Alternate function 4
 	GPIO_Config(&mpu6050_sclPin);
@@ -349,8 +347,10 @@ void configPeripherals(void) {
 	mpu6050_sdaPin.pGPIOx = GPIOB;
 	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinNumber = PIN_9;
 	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_ALTFN; // Alternate function mode
-	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinOPType = GPIO_OTYPE_OPENDRAIN; // Open-drain output
-	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinPuPdControl = GPIO_PUPDR_NOTHING; // No pull-up/pull-down
+	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinOPType =
+	GPIO_OTYPE_OPENDRAIN; // Open-drain output
+	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinPuPdControl =
+	GPIO_PUPDR_NOTHING; // No pull-up/pull-down
 	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinSpeed = GPIO_OSPEED_FAST; // Fast output speed
 	mpu6050_sdaPin.GPIO_PinConfig_t.GPIO_PinAltFunMode = AF4; // Alternate function 4
 	GPIO_Config(&mpu6050_sdaPin);
@@ -475,7 +475,8 @@ void configPeripherals(void) {
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinNumber = PIN_0;
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_ALTFN; // Alternate function mode
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinOPType = GPIO_OTYPE_PUSHPULL;
-	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinPuPdControl = GPIO_PUPDR_NOTHING;
+	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinPuPdControl =
+	GPIO_PUPDR_NOTHING;
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinSpeed = GPIO_OSPEED_FAST; // Fast output speed
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinAltFunMode = AF2;
 	GPIO_Config(&pin_PWMConfig);
@@ -484,7 +485,8 @@ void configPeripherals(void) {
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinNumber = PIN_1;
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinMode = GPIO_MODE_ALTFN; // Alternate function mode
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinOPType = GPIO_OTYPE_PUSHPULL;
-	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinPuPdControl = GPIO_PUPDR_NOTHING;
+	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinPuPdControl =
+	GPIO_PUPDR_NOTHING;
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinSpeed = GPIO_OSPEED_FAST; // Fast output speed
 	pin_PWMConfig.GPIO_PinConfig_t.GPIO_PinAltFunMode = AF2;
 	GPIO_Config(&pin_PWMConfig);
@@ -525,7 +527,7 @@ void configPeripherals(void) {
 	handlerTimer2.TIMx_Config.TIMx_interruptEnable = 1; // Enable interrupt
 	handlerTimer2.TIMx_Config.TIMx_mode = BTIMER_MODE_UP; // Up-counting mode
 	handlerTimer2.TIMx_Config.TIMx_period = 10; // Period
-	handlerTimer2.TIMx_Config.TIMx_speed = BTIMER_SPEED_100us; // Speed
+	handlerTimer2.TIMx_Config.TIMx_speed = 10; // Speed
 
 	BasicTimer_Config(&handlerTimer2);
 }
@@ -718,9 +720,10 @@ void BasicTimer3_Callback(void) {
 		measure = 1;
 	} else if (accelActivate == 2) {
 		// Get and process gyroscope measurement
-		gyroZ = getGyroZMeasure();
-		gyroZ = fabs(gyroZ) < 0.3f ? 0 : gyroZ;
-		thetaG += gyroZ * 0.025f;
+		getAccelMeasure(accelMeasurements);
+		if (onMove) {
+			thetaG += gyroZ * 0.025f;
+		}
 
 		// Check if the robot has reached the target angle
 		if (move90G && thetaG > tethaObjective * 0.99f) {
@@ -731,17 +734,10 @@ void BasicTimer3_Callback(void) {
 	}
 
 	// Check if the robot is moving and needs to stop
-	if (onMove && (modoVueltas == 0 && move90 == 0)) {
+	if (onMove && (modoVueltas == 0 && move90G == 0)) {
 		// Update the robot's position
 		updatePosition();
-		int threshold = 61 * 2;  // Adjust threshold for 25 ms interval
-		if (counterYwlCounter > threshold || counterBlueCounter > threshold) {
-			// Reset counters and stop the robot
-			counterYwlCounter = 0;
-			counterBlueCounter = 0;
-			stop();
-			move90 = 0;
-		}
+
 	}
 
 	// Toggle the user LED every second
@@ -753,13 +749,13 @@ void BasicTimer3_Callback(void) {
 	}
 
 	// Periodically update the motor control
-	if (counter250ms == 7) {
+	if (counter250ms == 7 && onMove) {
 		// Update motor control
 		updateMotorControl();
 	}
 
 	// Handle data transmission and reset counters
-	if (counter10seg > 40) {
+	if (counter10seg > 4 && accelActivate == 2) {
 		// Format data for transmission
 		sprintf(bufferData,
 				"%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.3f\t%.3f\t%d\t%d\t%.2f\t%.2f\t%.2f\n",
@@ -794,12 +790,9 @@ void callback_extInt7(void) {
 
 // External interrupt callback for PC1
 void callback_extInt1(void) {
-	// Calculate yellow instantaneous velocity
-	yellowInstantVelocity = YELLOW_DISTANCE_INT
-			/ (counterTimer2 - lastIntYellow);
-	lastIntYellow = counterTimer2;
 	counterYwlCounterT++;
 	counterYwlCounter++;
+
 
 	if (modoVueltas == 1) {
 		// Check if the yellow counter has reached the target vueltas
@@ -813,11 +806,9 @@ void callback_extInt1(void) {
 
 // External interrupt callback for PC3
 void callback_extInt3(void) {
-	// Calculate blue instantaneous velocity
-	blueInstantVelocity = BLUE_DISTANCE_INT / (counterTimer2 - lastIntBlue);
-	lastIntBlue = counterTimer2;
 	counterBlueCounterT++;
 	counterBlueCounter++;
+
 
 	if (modoVueltas == 2) {
 		// Check if the blue counter has reached the target vueltas
@@ -834,8 +825,10 @@ void updatePosition(void) {
 	double dLeft, dRight, dCenter, deltaX, deltaY;
 
 	// Calculate the distance traveled by each wheel
-	recorridoBlue = yellowInstantVelocity * 0.025f;
-	recorridoYellow = blueInstantVelocity * 0.025f;
+	recorridoBlue = (counterBlueCounter) * M_PI * wheelsize / vueltasBlue;
+	counterBlueCounter = 0;
+	recorridoYellow = (counterYwlCounter) * M_PI * wheelsize / vueltasYellow;
+	counterYwlCounter = 0;
 
 	// Convert directions into forward (1) or backward (-1) multipliers
 	int multiplierBlue = (dirBlueVal == 0) ? 1 : -1;
@@ -925,30 +918,26 @@ int clamp(int value, int min, int max) {
 	return value;
 }
 
-// Function to get the gyro measurement
-float getGyroZMeasure(void) {
-	float aux = (mpu6050_readGyroZ(&i2c1_mpu6050)) / 131.0f - gyroZOffset;
-	return aux;
-}
-
 //function than update the accelerometer measurements
 
 void getAccelMeasure(int16_t *array) {
-    // Create a temporary array to store the I2C read data
-    uint8_t auxArray[4];
+	// Create a temporary array to store the I2C read data
+	uint8_t auxArray[6];
+	// Read the 4 registers corresponding to the accelerometers
+	i2c_readMulRegister2(&i2c1_mpu6050, regsToRead, 6, auxArray);
 
-    // Read the 4 registers corresponding to the accelerometers
-    i2c_readMultipleRegisters(&i2c1_mpu6050, auxArray, ACCEL_XOUT_H, 4);
+	// Organize the measurements in the input array
+	// Combine high-byte and low-byte values to form 16-bit integers
+	array[0] = (auxArray[0] << 8) | auxArray[1];  // Accel X
+	array[1] = (auxArray[2] << 8) | auxArray[3];  // Accel Y
+	array[2] = (auxArray[4] << 8) | auxArray[5];
 
-    // Organize the measurements in the input array
-    // Combine high-byte and low-byte values to form 16-bit integers
-    array[0] = (auxArray[0] << 8) | auxArray[1];  // Accel X
-    array[1] = (auxArray[2] << 8) | auxArray[3];  // Accel Y
+	// Calculate the corrected acceleration values
+	// Use the offset values to correct the measurements
+	accelX = array[0] / 16384.0f - accelXOffset;
+	// Note: It seems there is an error in the original code, accelY is calculated using array[0] instead of array[1]
+	accelY = array[1] / 16384.0f - accelYOffset;
 
-    // Calculate the corrected acceleration values
-    // Use the offset values to correct the measurements
-    accelX = array[0] / 16384.0f - accelXOffset;
-    // Note: It seems there is an error in the original code, accelY is calculated using array[0] instead of array[1]
-    accelY = array[1] / 16384.0f - accelYOffset;
+	gyroZ = array[2] / 131.0f - gyroZOffset;
 }
 
