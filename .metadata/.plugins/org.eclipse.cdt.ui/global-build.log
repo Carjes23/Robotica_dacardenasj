@@ -1,4 +1,4 @@
-18:11:12 **** Incremental Build of configuration Debug for project PruebasMotores ****
+10:24:31 **** Incremental Build of configuration Debug for project PruebasMotores ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -15,13 +15,13 @@ Finished building target: PruebasMotores.elf
  
 arm-none-eabi-size   PruebasMotores.elf 
    text	   data	    bss	    dec	    hex	filename
-  50180	    548	   2712	  53440	   d0c0	PruebasMotores.elf
+  51236	    548	   2696	  54480	   d4d0	PruebasMotores.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
 Finished building: PruebasMotores.list
  
-18:11:15 **** Incremental Build of configuration Debug for project PruebasMotores ****
+10:24:46 **** Incremental Build of configuration Debug for project PruebasMotores ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -38,13 +38,13 @@ Finished building target: PruebasMotores.elf
  
 arm-none-eabi-size   PruebasMotores.elf 
    text	   data	    bss	    dec	    hex	filename
-  50180	    548	   2712	  53440	   d0c0	PruebasMotores.elf
+  51236	    548	   2696	  54480	   d4d0	PruebasMotores.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
 Finished building: PruebasMotores.list
  
-18:16:01 **** Incremental Build of configuration Debug for project PruebasMotores ****
+10:26:51 **** Incremental Build of configuration Debug for project PruebasMotores ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -61,13 +61,13 @@ Finished building target: PruebasMotores.elf
  
 arm-none-eabi-size   PruebasMotores.elf 
    text	   data	    bss	    dec	    hex	filename
-  50180	    548	   2712	  53440	   d0c0	PruebasMotores.elf
+  51236	    548	   2696	  54480	   d4d0	PruebasMotores.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
 Finished building: PruebasMotores.list
  
-18:17:35 **** Incremental Build of configuration Debug for project PruebasMotores ****
+10:27:52 **** Incremental Build of configuration Debug for project PruebasMotores ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -84,13 +84,13 @@ Finished building target: PruebasMotores.elf
  
 arm-none-eabi-size   PruebasMotores.elf 
    text	   data	    bss	    dec	    hex	filename
-  50188	    548	   2712	  53448	   d0c8	PruebasMotores.elf
+  51244	    548	   2696	  54488	   d4d8	PruebasMotores.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
 Finished building: PruebasMotores.list
  
-18:18:01 **** Incremental Build of configuration Debug for project PruebasMotores ****
+10:29:23 **** Incremental Build of configuration Debug for project PruebasMotores ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -107,13 +107,13 @@ Finished building target: PruebasMotores.elf
  
 arm-none-eabi-size   PruebasMotores.elf 
    text	   data	    bss	    dec	    hex	filename
-  50188	    548	   2712	  53448	   d0c8	PruebasMotores.elf
+  51244	    548	   2696	  54488	   d4d8	PruebasMotores.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
 Finished building: PruebasMotores.list
  
-18:49:42 **** Incremental Build of configuration Debug for project PruebasMotores ****
+10:34:09 **** Incremental Build of configuration Debug for project PruebasMotores ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -130,13 +130,13 @@ Finished building target: PruebasMotores.elf
  
 arm-none-eabi-size   PruebasMotores.elf 
    text	   data	    bss	    dec	    hex	filename
-  50188	    548	   2712	  53448	   d0c8	PruebasMotores.elf
+  51252	    548	   2696	  54496	   d4e0	PruebasMotores.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
 Finished building: PruebasMotores.list
  
-18:49:54 **** Incremental Build of configuration Debug for project PruebasMotores ****
+10:35:06 **** Incremental Build of configuration Debug for project PruebasMotores ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -153,13 +153,13 @@ Finished building target: PruebasMotores.elf
  
 arm-none-eabi-size   PruebasMotores.elf 
    text	   data	    bss	    dec	    hex	filename
-  50188	    548	   2712	  53448	   d0c8	PruebasMotores.elf
+  51252	    548	   2696	  54496	   d4e0	PruebasMotores.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
 Finished building: PruebasMotores.list
  
-18:52:41 **** Incremental Build of configuration Debug for project PruebasMotores ****
+10:41:11 **** Incremental Build of configuration Debug for project PruebasMotores ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -176,7 +176,260 @@ Finished building target: PruebasMotores.elf
  
 arm-none-eabi-size   PruebasMotores.elf 
    text	   data	    bss	    dec	    hex	filename
-  50188	    548	   2712	  53448	   d0c8	PruebasMotores.elf
+  51260	    548	   2696	  54504	   d4e8	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+10:47:16 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51268	    548	   2696	  54512	   d4f0	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+10:47:56 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51268	    548	   2696	  54512	   d4f0	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+10:48:26 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51268	    548	   2696	  54512	   d4f0	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+10:54:12 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51276	    548	   2696	  54520	   d4f8	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+10:54:31 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51276	    548	   2696	  54520	   d4f8	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+11:05:43 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51276	    548	   2696	  54520	   d4f8	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+11:21:09 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51276	    548	   2696	  54520	   d4f8	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+11:25:58 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51276	    548	   2696	  54520	   d4f8	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+11:27:28 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51276	    548	   2696	  54520	   d4f8	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+11:28:28 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51276	    548	   2696	  54520	   d4f8	PruebasMotores.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"
+Finished building: PruebasMotores.list
+ 
+13:01:33 **** Incremental Build of configuration Debug for project PruebasMotores ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/MPU6050.d ./App/Src/MPU6050.o ./App/Src/MPU6050.su ./App/Src/velocityWithTime.d ./App/Src/velocityWithTime.o ./App/Src/velocityWithTime.su
+rm -rf PruebasMotores.elf PruebasMotores.list PruebasMotores.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/MPU6050.d" -MT"App/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/MPU6050.o"
+arm-none-eabi-gcc "../App/Src/velocityWithTime.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Inc" -I"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/App/Inc" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Device/ST/STM32F4xx/Include" -I"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/velocityWithTime.d" -MT"App/Src/velocityWithTime.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/velocityWithTime.o"
+arm-none-eabi-gcc -o "PruebasMotores.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"/home/daniel/Robotica/RTOS_workspace/PruebasMotores/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebasMotores.map" -Wl,--gc-sections -static -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-PeripheralDrivers/Debug" -L"/home/daniel/Robotica/RTOS_workspace/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebasMotores.elf
+ 
+arm-none-eabi-size   PruebasMotores.elf 
+   text	   data	    bss	    dec	    hex	filename
+  51276	    548	   2696	  54520	   d4f8	PruebasMotores.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  PruebasMotores.elf  > "PruebasMotores.list"

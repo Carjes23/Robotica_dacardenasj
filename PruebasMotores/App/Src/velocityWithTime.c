@@ -48,6 +48,7 @@ void configPeripherals(void);
 int clamp(int value, int min, int max);
 void updateMotorControl();
 void getAccelMeasure(int16_t *array);
+void rotateG(void);
 
 // PID constants
 double integralTheta = 0.0; // Integral accumulator for angle
@@ -75,10 +76,10 @@ PWM_Handler_t pwmYellow = { 0 }; // PWM yellow handler
 bool dirBlueVal = 0; // Blue direction value
 
 // Other variables
-uint16_t prescaler = 40;
+uint16_t prescaler = 400;
 uint16_t periodo = 10000;
-uint16_t duttyInBlue = 3237; // 250; //350 32.370 30.190
-uint16_t duttyIYwl = 3015; // 3780; //264//364
+uint16_t duttyInBlue = 3237; //250  //350 32.370 30.190
+uint16_t duttyIYwl = 3015; //3780; //264//364
 
 uint16_t duttyGiroBlue = 3237; // 250; //350
 uint16_t duttyGiroYwl = 3015; // 264//364
@@ -161,6 +162,7 @@ float wheelsize = 5.12;
 float rotate = M_PI / 2;
 uint8_t vueltasMsg = 1;
 uint8_t modoVueltas = 0;
+bool movesq = 0;
 
 bool newMoveBlue, newMoveYellow;
 bool calibrate = 0;
@@ -192,8 +194,14 @@ void updatePosition(void);
 void stop(void);
 double deltaTheta = 0;
 double thetaG = 0;
-double tethaObjective = 0;
+double thetaObjective = 0;
 bool move90G = 0;
+uint8_t squareSide = 0;
+bool enableCounter = 0;
+uint8_t counter1SegundoPausa = 0;
+bool banderaLed = 0;
+
+void moveForward(void);
 
 // Redirection of printf() to USART2
 int __io_putchar(int ch) {
@@ -227,6 +235,62 @@ int main(void) {
 	while (1) {
 		/* If we reach this point, something went wrong... */
 		/* The '@' character indicates the end of the string */
+
+		if(banderaLed){
+			GPIOxTooglePin(&ledUsuario);
+			banderaLed =  0 ;
+		}
+
+		if (movesq) {
+			uint8_t auxTime = 4;
+			if (squareSide == 0 && x >= distancia) {
+				squareSide++;
+				stop();
+				enableCounter = 1;
+				counter1SegundoPausa = 0;
+
+			} else if (squareSide == 1 && counter1SegundoPausa >= auxTime) {
+
+				rotateG();
+				enableCounter = 0;
+				counter1SegundoPausa = 0;
+			}
+
+			else if (squareSide == 2 && counter1SegundoPausa >= auxTime) {
+				counter1SegundoPausa = 0;
+				moveForward();
+				if (y >= distancia) {
+					squareSide++;
+					stop();
+					enableCounter = 1;
+				}
+			} else if (squareSide == 3 && counter1SegundoPausa >= auxTime) {
+				rotateG();
+				enableCounter = 0;
+				counter1SegundoPausa = 0;
+			} else if (squareSide == 4 && counter1SegundoPausa >= auxTime) {
+				counter1SegundoPausa = 0;
+				moveForward();
+				if (x <= 0) {
+					squareSide++;
+					stop();
+					enableCounter = 1;
+				}
+			} else if (squareSide == 5 && counter1SegundoPausa >= auxTime) {
+				rotateG();
+				enableCounter = 0;
+				counter1SegundoPausa = 0;
+			} else if (squareSide == 6 && counter1SegundoPausa >= auxTime) {
+				counter1SegundoPausa = 0;
+				moveForward();
+				if (y <= 0) {
+					squareSide++;
+					stop();
+					enableCounter = 1;
+					movesq = 0;
+				}
+			}
+		}
 
 		// Calibration mode
 		if (accelActivate == 1) {
@@ -614,6 +678,7 @@ void parseCommands(char *ptrBufferReception) {
 		moves = 1;
 		theta = 0;
 		thetaG = 0;
+		thetaObjective = 0;
 		x = 0;
 		y = 0;
 		pwmBlue.config.duttyCicle = duttyInBlue;
@@ -690,9 +755,24 @@ void parseCommands(char *ptrBufferReception) {
 		GPIO_WritePin(&dirPinYw, dirYellowVal);
 		newMoveBlue = 1;
 		newMoveYellow = 1;
-		tethaObjective += 90;
+		thetaObjective += 90;
 		onMove = 1;
-	} else {
+	} else if (strcmp(cmd, "square") == 0) {
+		// Handle "movex" command
+		if (firstParameter != 0) {
+			distancia = firstParameter;
+		}
+		thetaObjective = 0;
+		squareSide = 0;
+		movesq = 1;
+		theta = 0;
+		thetaG = 0;
+		x = 0;
+		y = 0;
+		moveForward();
+	}
+
+	else {
 		// If the command does not match any of the above commands, print a "Wrong CMD" message
 		writeString(&handlerConexion, "Wrong CMD \n");
 	}
@@ -721,15 +801,23 @@ void BasicTimer3_Callback(void) {
 	} else if (accelActivate == 2) {
 		// Get and process gyroscope measurement
 		getAccelMeasure(accelMeasurements);
-		if (onMove) {
+		if (onMove || movesq) {
 			thetaG += gyroZ * 0.025f;
 		}
 
 		// Check if the robot has reached the target angle
-		if (move90G && thetaG > tethaObjective * 0.99f) {
-			// Stop the robot
-			stop();
-			move90G = 0;
+		if (move90G && thetaG > thetaObjective * 0.98f) {
+			if (movesq) {
+				// Stop the robot
+				stop();
+				move90G = 0;
+				squareSide++;
+				enableCounter = 1;
+			} else {
+				// Stop the robot
+				stop();
+				move90G = 0;
+			}
 		}
 	}
 
@@ -743,23 +831,28 @@ void BasicTimer3_Callback(void) {
 	// Toggle the user LED every second
 	if (counter250ms >= 10) {
 		// Toggle the LED
-		GPIOxTooglePin(&ledUsuario);
+		banderaLed = 1;
 		counter250ms = 0;
 		counter10seg++;
+		if (enableCounter) {
+			counter1SegundoPausa++;
+		}
+
 	}
 
 	// Periodically update the motor control
 	if (counter250ms == 7 && onMove) {
 		// Update motor control
 		updateMotorControl();
+
 	}
 
 	// Handle data transmission and reset counters
-	if (counter10seg > 4 && accelActivate == 2) {
+	if (counter10seg > 1 && accelActivate == 2 && ((onMove||move90G) && movesq)) {
 		// Format data for transmission
 		sprintf(bufferData,
-				"%.4f\t%.4f\t%.4f\t%.4f\t%.4f\t%.3f\t%.3f\t%d\t%d\t%.2f\t%.2f\t%.2f\n",
-				x / 100, y / 100, thetaG, avgBlue, avgYwl,
+				"%.4f\t%.4f\t%.4f\t%d\t%.4f\t%.3f\t%.3f\t%d\t%d\t%.2f\t%.2f\t%.2f\n",
+				x / 100, y / 100, thetaG, squareSide, thetaObjective,
 				pwmBlue.config.duttyCicle / 100.0f,
 				pwmYellow.config.duttyCicle / 100.0f, (int) counterBlueCounterT,
 				(int) counterYwlCounterT, Kp_theta, Ki_theta, Kd_theta);
@@ -793,7 +886,6 @@ void callback_extInt1(void) {
 	counterYwlCounterT++;
 	counterYwlCounter++;
 
-
 	if (modoVueltas == 1) {
 		// Check if the yellow counter has reached the target vueltas
 		if (counterYwlCounter >= vueltasYellow * vueltasMsg) {
@@ -808,7 +900,6 @@ void callback_extInt1(void) {
 void callback_extInt3(void) {
 	counterBlueCounterT++;
 	counterBlueCounter++;
-
 
 	if (modoVueltas == 2) {
 		// Check if the blue counter has reached the target vueltas
@@ -830,7 +921,7 @@ void updatePosition(void) {
 	recorridoYellow = (counterYwlCounter) * M_PI * wheelsize / vueltasYellow;
 	counterYwlCounter = 0;
 
-	// Convert directions into forward (1) or backward (-1) multipliers
+	// Convert directions into moveForward (1) or backward (-1) multipliers
 	int multiplierBlue = (dirBlueVal == 0) ? 1 : -1;
 	int multiplierYellow = (dirYellowVal == 0) ? 1 : -1;
 
@@ -865,6 +956,7 @@ void updatePosition(void) {
 		stop();
 		moves = 0;
 	}
+
 }
 
 // Function to stop the robot's movement
@@ -874,23 +966,19 @@ void stop(void) {
 	pwmBlue.config.duttyCicle = START;
 	setDuttyCycle(&pwmYellow);
 	setDuttyCycle(&pwmBlue);
-	counterBlueLastIns = 0;
-	counterYellowLastIns = 0;
-	integralTheta = 0;
-	lastThetaError = 0.0;
 }
 
 // Function to update motor control
 void updateMotorControl() {
 	// Angle control
-	double thetaError = thetaG; // assuming theta is updated elsewhere in the code
+	double thetaError = thetaG - thetaObjective; // theta is updated on other place
 	double derivativeTheta = thetaError - lastThetaError;
 	integralTheta += thetaError;
 
 	double adjustTheta = (Kp_theta * thetaError) + (Ki_theta * integralTheta)
 			+ (Kd_theta * derivativeTheta);
 
-	uint16_t limit = 500.0f;
+	uint16_t limit = 1000.0f;
 
 	uint16_t aux = clamp(pwmYellow.config.duttyCicle - (int) (adjustTheta),
 			duttyIYwl - limit, duttyIYwl + limit);
@@ -941,3 +1029,38 @@ void getAccelMeasure(int16_t *array) {
 	gyroZ = array[2] / 131.0f - gyroZOffset;
 }
 
+void rotateG(void) {
+	// Handle "rotateG" command
+	move90G = 1;
+
+	dirBlueVal = 1;
+	pwmUpdatePolarity(&pwmBlue, dirBlueVal);
+	GPIO_WritePin(&dirPinBlue, dirBlueVal);
+	dirYellowVal = 0;
+	pwmUpdatePolarity(&pwmYellow, dirYellowVal);
+	GPIO_WritePin(&dirPinYw, dirYellowVal);
+	pwmBlue.config.duttyCicle = duttyGiroBlue;
+	setDuttyCycle(&pwmBlue);
+	pwmYellow.config.duttyCicle = duttyGiroYwl;
+	setDuttyCycle(&pwmYellow);
+	newMoveBlue = 1;
+	newMoveYellow = 1;
+	thetaObjective += 90;
+}
+
+void moveForward(void) {
+	lastThetaError = 0;
+	integralTheta = 0;
+	lastThetaError = 0;
+	dirBlueVal = 0;
+	pwmUpdatePolarity(&pwmBlue, dirBlueVal);
+	GPIO_WritePin(&dirPinBlue, dirBlueVal);
+	dirYellowVal = 0;
+	pwmUpdatePolarity(&pwmYellow, dirYellowVal);
+	GPIO_WritePin(&dirPinYw, dirYellowVal);
+	pwmBlue.config.duttyCicle = duttyInBlue;
+	setDuttyCycle(&pwmBlue);
+	pwmYellow.config.duttyCicle = duttyIYwl;
+	setDuttyCycle(&pwmYellow);
+	onMove = 1;
+}
