@@ -84,9 +84,6 @@
 							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.88385114" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1661628218.1987639555" name="tunningThePIDGyro.c" rcbsApplicability="disable" resourcePath="App/Src/tunningThePIDGyro.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.597852942.1625333967">
-						<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.597852942.1625333967" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.597852942"/>
-					</fileInfo>
 					<sourceEntries>
 						<entry excluding="Src/tunningThePIDGyro.c|Src/tunningThePID.c|Src/linealizacionMotores.c|Src/pruebasControl.c|Src/pruebaConteo72.c|Src/pruebaRecorridoMotores.c|Src/prueba2.c|Src/prueba3.c|Src/prueba.c|Src/main.c|Src/hola.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="App"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>

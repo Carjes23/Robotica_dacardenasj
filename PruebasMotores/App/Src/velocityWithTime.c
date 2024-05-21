@@ -54,9 +54,9 @@ void rotateG(void);
 double integralTheta = 0.0; // Integral accumulator for angle
 double lastThetaError = 0.0; // Last theta error for derivative calculation
 
-double Kp_theta = 7.5; // Proportional gain for angle
+double Kp_theta = 34.00; // Proportional gain for angle
 double Ki_theta = 0.08; // Integral gain for angle
-double Kd_theta = 2.25; // Derivative gain for angle
+double Kd_theta = 95.00; // Derivative gain for angle
 
 // General handlers
 GPIO_Handler_t ledUsuario; // LED user handler
@@ -80,6 +80,8 @@ uint16_t prescaler = 400;
 uint16_t periodo = 10000;
 uint16_t duttyInBlue = 3237; //250  //350 32.370 30.190
 uint16_t duttyIYwl = 3015; //3780; //264//364
+
+
 
 uint16_t duttyGiroBlue = 3237; // 250; //350
 uint16_t duttyGiroYwl = 3015; // 264//364
@@ -236,9 +238,9 @@ int main(void) {
 		/* If we reach this point, something went wrong... */
 		/* The '@' character indicates the end of the string */
 
-		if(banderaLed){
+		if (banderaLed) {
 			GPIOxTooglePin(&ledUsuario);
-			banderaLed =  0 ;
+			banderaLed = 0;
 		}
 
 		if (movesq) {
@@ -761,15 +763,24 @@ void parseCommands(char *ptrBufferReception) {
 		// Handle "movex" command
 		if (firstParameter != 0) {
 			distancia = firstParameter;
+			thetaObjective = 0;
+			squareSide = 0;
+			movesq = 1;
+			theta = 0;
+			thetaG = 0;
+			x = 0;
+			y = 0;
+			moveForward();
+		} else {
+			stop();
+			thetaObjective = 0;
+			squareSide = 0;
+			movesq = 0;
+			theta = 0;
+			thetaG = 0;
+			x = 0;
+			y = 0;
 		}
-		thetaObjective = 0;
-		squareSide = 0;
-		movesq = 1;
-		theta = 0;
-		thetaG = 0;
-		x = 0;
-		y = 0;
-		moveForward();
 	}
 
 	else {
@@ -848,7 +859,8 @@ void BasicTimer3_Callback(void) {
 	}
 
 	// Handle data transmission and reset counters
-	if (counter10seg > 1 && accelActivate == 2 && ((onMove||move90G) && movesq)) {
+	if (counter10seg > 1 && accelActivate == 2
+			&& ((onMove || move90G) && movesq)) {
 		// Format data for transmission
 		sprintf(bufferData,
 				"%.4f\t%.4f\t%.4f\t%d\t%.4f\t%.3f\t%.3f\t%d\t%d\t%.2f\t%.2f\t%.2f\n",
@@ -978,7 +990,7 @@ void updateMotorControl() {
 	double adjustTheta = (Kp_theta * thetaError) + (Ki_theta * integralTheta)
 			+ (Kd_theta * derivativeTheta);
 
-	uint16_t limit = 1000.0f;
+	uint16_t limit = 750.0f;
 
 	uint16_t aux = clamp(pwmYellow.config.duttyCicle - (int) (adjustTheta),
 			duttyIYwl - limit, duttyIYwl + limit);
