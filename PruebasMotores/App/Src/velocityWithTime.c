@@ -943,16 +943,7 @@ void updatePosition(void) {
 
 	// Average distance traveled by the robot
 	dCenter = (dLeft + dRight) / 2.0;
-	deltaTheta = (dRight - dLeft) / wheelbase;
 	// Calculate change in orientation
-
-	theta += deltaTheta;
-
-	// Ensure theta stays within [-pi, pi]
-	if (theta > M_PI)
-		theta -= 2 * M_PI;
-	else if (theta < -M_PI)
-		theta += 2 * M_PI;
 
 	double thetaGRad = thetaG * (M_PI / 180.0f);
 
@@ -963,11 +954,6 @@ void updatePosition(void) {
 	// Update position
 	x += deltaX;
 	y += deltaY;
-
-	if ((x > distancia) && moves == 1) {
-		stop();
-		moves = 0;
-	}
 
 }
 

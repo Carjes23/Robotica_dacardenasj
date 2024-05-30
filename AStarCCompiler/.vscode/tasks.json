@@ -1,0 +1,27 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+	  {
+		"label": "build A_Start_Pathfinding",
+		"type": "shell",
+		"command": "/usr/bin/gcc",
+		"args": [
+		  "-fdiagnostics-color=always",
+		  "-g",
+		  "-I${workspaceFolder}/inc",
+		  "${workspaceFolder}/src/A_Start_Pathfinding.c",
+		  "${workspaceFolder}/src/Single_Cell.c",
+		  "-o",
+		  "${workspaceFolder}/src/A_Start_Pathfinding",
+		  "-lm"
+		],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		},
+		"problemMatcher": ["$gcc"],
+		"detail": "Compiled with the shell command."
+	  }
+	]
+  }
+  
