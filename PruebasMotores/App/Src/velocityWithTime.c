@@ -314,7 +314,7 @@ int main(void) {
 				} else if (measureCount < aux * 1.5f) {
 					getAccelMeasure(accelMeasurements);
 					if (fabs(accelX) > 0.3f || fabs(accelY) > 0.3f
-							|| fabs(gyroZ) > 0.4f) {
+							|| fabs(gyroZ) > 0.3f) {
 						printf("Calibration continues\n");
 						measureCount = 0;
 						sumAccelXOffset = 0;
@@ -812,6 +812,9 @@ void BasicTimer3_Callback(void) {
 	} else if (accelActivate == 2) {
 		// Get and process gyroscope measurement
 		getAccelMeasure(accelMeasurements);
+//		if(fabs(gyroZ) < 0.3f){
+//			gyroZ = 0;
+//		}
 		if (onMove || movesq) {
 			thetaG += gyroZ * 0.025f;
 		}

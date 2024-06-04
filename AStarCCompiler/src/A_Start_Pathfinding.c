@@ -15,7 +15,7 @@
 #include <string.h>
 #include <math.h>
 
-#include "../inc/Single_Cell.h"
+#include "Single_Cell.h"
 
 #define MAP_GRID_ROWS 8
 #define MAP_GRID_COLS 10
@@ -87,9 +87,9 @@ int main(void)
 	 * En el caso del MCU, el string se debe recibir por el puerto serial,
 	 * al igual que la indicación de a qué fila del mapa corresponde
 	 * */
-	populate_grid(". G . . . # . . . . ", 0, grid_map_cells);
+	populate_grid("G . . . . # . . . . ", 0, grid_map_cells);
 	populate_grid("# # # # # . . # # . ", 1, grid_map_cells);
-	populate_grid(". S # . # # # # . . ", 2, grid_map_cells);
+	populate_grid("S . # . # # # # . . ", 2, grid_map_cells);
 	populate_grid(". . # . . . . # . # ", 3, grid_map_cells);
 	populate_grid("# . # . . . . # . . ", 4, grid_map_cells);
 	populate_grid(". . # . . . . # # . ", 5, grid_map_cells);
@@ -368,7 +368,6 @@ void addTo_closed_list(Cell_map_t *working_cell)
 	working_cell->state = CLOSE;
 	closed_list[closed_list_index] = working_cell;
 	closed_list_index++;
-
 }
 
 /**
@@ -526,7 +525,8 @@ void populate_grid(char *row_data, uint8_t grid_row, Cell_map_t *grid_map)
 		}
 		else if (row_data[i] == 'S')
 		{
-			if(ptr_start_cell){
+			if (ptr_start_cell)
+			{
 				printf("Multiples inicios\n");
 				exit(EXIT_FAILURE);
 			}
@@ -536,7 +536,8 @@ void populate_grid(char *row_data, uint8_t grid_row, Cell_map_t *grid_map)
 		}
 		else if (row_data[i] == 'G')
 		{
-			if(ptr_goal_cell){
+			if (ptr_goal_cell)
+			{
 				printf("Multiples objetivos\n");
 				exit(EXIT_FAILURE);
 			}
@@ -618,20 +619,34 @@ void print_map(int8_t gridCols, uint8_t gridRows, Cell_map_t *cellArray)
 			uint8_t aux = cellArray[i * gridCols + j].type;
 			switch (aux)
 			{
-			case 0:
-				printf(". ");
+			case FREE:
+				if (cellArray[i * gridCols + j].state == NONE)
+				{
+					printf(". ");
+				}
+				else if (cellArray[i * gridCols + j].state == CLOSE)
+				{
+					printf("C ");
+				}
+				else if (cellArray[i * gridCols + j].state == OPEN)
+				{
+					printf("O ");
+				}
+				else if (cellArray[i * gridCols + j].state == PATH)
+				{
+					printf("* ");
+				}
+
 				break;
-			case 1:
+			case OBSTACLE:
 				printf("# ");
 				break;
-			case 2:
+			case START:
 				printf("S ");
 				break;
-			case 3:
+			case GOAL:
 				printf("G ");
 				break;
-			case 4:
-				printf("o ");
 			default:
 				break;
 			}
@@ -654,7 +669,7 @@ void print_path(Cell_map_t *working_cell)
 	{
 		if (working_cell != ptr_goal_cell)
 		{
-			working_cell->type = 4;
+			working_cell->state = PATH;
 		}
 		printf("%d ", working_cell->id);
 		working_cell = &grid_map_cells[working_cell->parent];
@@ -706,7 +721,7 @@ void A_star_algorithm(void)
 		// 6. Buscamos los vecinos.
 		identify_cell_neighbours(grid_map_cells, ptr_current_cell);
 		// 7. Para cada vecino
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < MAX_NEIGHBOURS; i++)
 		{
 			uint8_t auxNeigbhborID = ptr_current_cell->neighbors[i];
 			if (auxNeigbhborID == 255)

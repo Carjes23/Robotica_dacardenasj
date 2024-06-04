@@ -48,7 +48,7 @@ enum state{
     NONE = 0,
     OPEN,
     CLOSE,
-    
+    PATH
 };
 
 
