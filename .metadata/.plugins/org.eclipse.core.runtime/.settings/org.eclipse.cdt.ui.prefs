@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+matchingBracketsColor=128,0,64
+sourceHoverBackgroundColor=47,47,47
 spelling_locale_initialized=true
 useAnnotationsPrefPage=true
 useQuickDiffPrefPage=true
