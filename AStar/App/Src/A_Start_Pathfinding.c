@@ -425,59 +425,59 @@ void identify_cell_neighbours(Cell_map_t *grid_map, Cell_map_t *cell_to_check) {
 	if (cell_to_check->pos_x > 0 && cell_to_check->pos_y > 0) {
 		auxX = cell_to_check->pos_x / GRID_SIZE - 1;
 		auxY = cell_to_check->pos_y / GRID_SIZE - 1;
-		auxId = auxX % MAP_GRID_COLS + (auxY * MAP_GRID_COLS);
+		auxId = auxX % grid_cols + (auxY * grid_cols);
 		cell_to_check->neighbors[0] = auxId;
 	}
 	// Vecino 2
 	if (cell_to_check->pos_y > 0) {
 		auxX = cell_to_check->pos_x / GRID_SIZE;
 		auxY = cell_to_check->pos_y / GRID_SIZE - 1;
-		auxId = auxX % MAP_GRID_COLS + (auxY * MAP_GRID_COLS);
+		auxId = auxX % grid_cols + (auxY * grid_cols);
 		cell_to_check->neighbors[1] = auxId;
 	}
 	// Vecino 3
 	if (cell_to_check->pos_y > 0
-			&& cell_to_check->pos_x < GRID_SIZE * (MAP_GRID_COLS - 1)) {
+			&& cell_to_check->pos_x < GRID_SIZE * (grid_cols - 1)) {
 		auxX = cell_to_check->pos_x / GRID_SIZE + 1;
 		auxY = cell_to_check->pos_y / GRID_SIZE - 1;
-		auxId = auxX % MAP_GRID_COLS + (auxY * MAP_GRID_COLS);
+		auxId = auxX % grid_cols + (auxY * grid_cols);
 		cell_to_check->neighbors[2] = auxId;
 	}
 	// Vecino 4
 	if (cell_to_check->pos_x > 0) {
 		auxX = cell_to_check->pos_x / GRID_SIZE - 1;
 		auxY = cell_to_check->pos_y / GRID_SIZE;
-		auxId = auxX % MAP_GRID_COLS + (auxY * MAP_GRID_COLS);
+		auxId = auxX % grid_cols + (auxY * grid_cols);
 		cell_to_check->neighbors[3] = auxId;
 	}
 	// Vecino 5
 	if (cell_to_check->pos_x < GRID_SIZE * (MAP_GRID_COLS - 1)) {
 		auxX = cell_to_check->pos_x / GRID_SIZE + 1;
 		auxY = cell_to_check->pos_y / GRID_SIZE;
-		auxId = auxX % MAP_GRID_COLS + (auxY * MAP_GRID_COLS);
+		auxId = auxX % grid_cols + (auxY * grid_cols);
 		cell_to_check->neighbors[4] = auxId;
 	}
 	// Vecino 6
 	if (cell_to_check->pos_x > 0
-			&& cell_to_check->pos_y < GRID_SIZE * (MAP_GRID_ROWS - 1)) {
+			&& cell_to_check->pos_y < GRID_SIZE * (grid_rows - 1)) {
 		auxX = cell_to_check->pos_x / GRID_SIZE - 1;
 		auxY = cell_to_check->pos_y / GRID_SIZE + 1;
-		auxId = auxX % MAP_GRID_COLS + (auxY * MAP_GRID_COLS);
+		auxId = auxX % grid_cols + (auxY * grid_cols);
 		cell_to_check->neighbors[5] = auxId;
 	}
 	// Vecino 7
-	if (cell_to_check->pos_y < GRID_SIZE * (MAP_GRID_ROWS - 1)) {
+	if (cell_to_check->pos_y < GRID_SIZE * (grid_rows - 1)) {
 		auxX = cell_to_check->pos_x / GRID_SIZE;
 		auxY = cell_to_check->pos_y / GRID_SIZE + 1;
-		auxId = auxX % MAP_GRID_COLS + (auxY * MAP_GRID_COLS);
+		auxId = auxX % grid_cols + (auxY * grid_cols);
 		cell_to_check->neighbors[6] = auxId;
 	}
 	// Vecino 8
-	if (cell_to_check->pos_x < GRID_SIZE * (MAP_GRID_COLS - 1)
-			&& cell_to_check->pos_y < GRID_SIZE * (MAP_GRID_ROWS - 1)) {
+	if (cell_to_check->pos_x < GRID_SIZE * (grid_cols - 1)
+			&& cell_to_check->pos_y < GRID_SIZE * (grid_rows - 1)) {
 		auxX = cell_to_check->pos_x / GRID_SIZE + 1;
 		auxY = cell_to_check->pos_y / GRID_SIZE + 1;
-		auxId = auxX % MAP_GRID_COLS + (auxY * MAP_GRID_COLS);
+		auxId = auxX % grid_cols + (auxY * grid_cols);
 		cell_to_check->neighbors[7] = auxId;
 	}
 }

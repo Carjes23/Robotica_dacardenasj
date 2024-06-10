@@ -1,8 +1,10 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=linux
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:PruebasMotores Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Base_FreeRTOS Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Prueba_SEGGER_PATCH Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:AStar Debug
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:PruebasMotores Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Base_FreeRTOS Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Prueba_SEGGER_PATCH Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:PruebaConsolaPy Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:AStar Debug
 eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:AStar\ Debug/activeLaunchMode=debug
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:AStar\ Debug/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Base_FreeRTOS\ Debug/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Base_FreeRTOS\ Debug/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Examen\ Debug/activeLaunchMode=debug

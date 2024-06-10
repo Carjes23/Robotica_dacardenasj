@@ -1,4 +1,33 @@
-13:22:41 **** Incremental Build of configuration Debug for project AStar ****
+08:41:04 **** Clean-only build of configuration Debug for project PruebaConsolaPy ****
+make clean clean 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf AStar.elf AStar.list AStar.map default.size.stdout
+ 
+make: Nothing to be done for 'clean'.
+08:41:05 **** Incremental Build of configuration Debug for project PruebaConsolaPy ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/main.d ./App/Src/main.o ./App/Src/main.su
+rm -rf PruebaConsolaPy.elf PruebaConsolaPy.list PruebaConsolaPy.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/App/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/App/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/App/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/main.d" -MT"App/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/main.o"
+arm-none-eabi-gcc -o "PruebaConsolaPy.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"E:\GitHub\Robotica_dacardenasj\PruebaConsolaPy\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebaConsolaPy.map" -Wl,--gc-sections -static -L"E:\GitHub\Robotica_dacardenasj/CMSIS-PeripheralDrivers/Debug" -L"E:\GitHub\Robotica_dacardenasj/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebaConsolaPy.elf
+ 
+arm-none-eabi-size   PruebaConsolaPy.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35784	    476	   2120	  38380	   95ec	PruebaConsolaPy.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebaConsolaPy.elf  > "PruebaConsolaPy.list"
+Finished building: PruebaConsolaPy.list
+ 
+08:41:44 **** Incremental Build of configuration Debug for project AStar ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -21,53 +50,7 @@ Finished building: default.size.stdout
 arm-none-eabi-objdump -h -S  AStar.elf  > "AStar.list"
 Finished building: AStar.list
  
-13:23:55 **** Incremental Build of configuration Debug for project AStar ****
-make clean all 
-rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
-rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
-rm -rf ./App/Src/A_Start_Pathfinding.d ./App/Src/A_Start_Pathfinding.o ./App/Src/A_Start_Pathfinding.su ./App/Src/Single_Cell.d ./App/Src/Single_Cell.o ./App/Src/Single_Cell.su
-rm -rf AStar.elf AStar.list AStar.map default.size.stdout
- 
-arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
-arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
-arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
-arm-none-eabi-gcc "../App/Src/A_Start_Pathfinding.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/A_Start_Pathfinding.d" -MT"App/Src/A_Start_Pathfinding.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/A_Start_Pathfinding.o"
-arm-none-eabi-gcc "../App/Src/Single_Cell.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/Single_Cell.d" -MT"App/Src/Single_Cell.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/Single_Cell.o"
-arm-none-eabi-gcc -o "AStar.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"E:\GitHub\Robotica_dacardenasj\AStar\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AStar.map" -Wl,--gc-sections -static -L"E:\GitHub\Robotica_dacardenasj/CMSIS-PeripheralDrivers/Debug" -L"E:\GitHub\Robotica_dacardenasj/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: AStar.elf
- 
-arm-none-eabi-size   AStar.elf 
-   text	   data	    bss	    dec	    hex	filename
-  37004	    476	   5392	  42872	   a778	AStar.elf
-Finished building: default.size.stdout
- 
-arm-none-eabi-objdump -h -S  AStar.elf  > "AStar.list"
-Finished building: AStar.list
- 
-13:26:02 **** Incremental Build of configuration Debug for project AStar ****
-make clean all 
-rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
-rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
-rm -rf ./App/Src/A_Start_Pathfinding.d ./App/Src/A_Start_Pathfinding.o ./App/Src/A_Start_Pathfinding.su ./App/Src/Single_Cell.d ./App/Src/Single_Cell.o ./App/Src/Single_Cell.su
-rm -rf AStar.elf AStar.list AStar.map default.size.stdout
- 
-arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
-arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
-arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
-arm-none-eabi-gcc "../App/Src/A_Start_Pathfinding.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/A_Start_Pathfinding.d" -MT"App/Src/A_Start_Pathfinding.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/A_Start_Pathfinding.o"
-arm-none-eabi-gcc "../App/Src/Single_Cell.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/Single_Cell.d" -MT"App/Src/Single_Cell.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/Single_Cell.o"
-arm-none-eabi-gcc -o "AStar.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"E:\GitHub\Robotica_dacardenasj\AStar\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AStar.map" -Wl,--gc-sections -static -L"E:\GitHub\Robotica_dacardenasj/CMSIS-PeripheralDrivers/Debug" -L"E:\GitHub\Robotica_dacardenasj/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: AStar.elf
- 
-arm-none-eabi-size   AStar.elf 
-   text	   data	    bss	    dec	    hex	filename
-  37004	    476	   5392	  42872	   a778	AStar.elf
-Finished building: default.size.stdout
- 
-arm-none-eabi-objdump -h -S  AStar.elf  > "AStar.list"
-Finished building: AStar.list
- 
-13:27:43 **** Incremental Build of configuration Debug for project AStar ****
+08:42:06 **** Incremental Build of configuration Debug for project AStar ****
 make clean all 
 rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
 rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
@@ -85,6 +68,96 @@ Finished building target: AStar.elf
 arm-none-eabi-size   AStar.elf 
    text	   data	    bss	    dec	    hex	filename
   37012	    476	   5392	  42880	   a780	AStar.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  AStar.elf  > "AStar.list"
+Finished building: AStar.list
+ 
+08:42:25 **** Incremental Build of configuration Debug for project PruebaConsolaPy ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/main.d ./App/Src/main.o ./App/Src/main.su
+rm -rf PruebaConsolaPy.elf PruebaConsolaPy.list PruebaConsolaPy.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/App/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/App/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/App/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/main.d" -MT"App/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/main.o"
+arm-none-eabi-gcc -o "PruebaConsolaPy.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"E:\GitHub\Robotica_dacardenasj\PruebaConsolaPy\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebaConsolaPy.map" -Wl,--gc-sections -static -L"E:\GitHub\Robotica_dacardenasj/CMSIS-PeripheralDrivers/Debug" -L"E:\GitHub\Robotica_dacardenasj/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebaConsolaPy.elf
+ 
+arm-none-eabi-size   PruebaConsolaPy.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35784	    476	   2120	  38380	   95ec	PruebaConsolaPy.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebaConsolaPy.elf  > "PruebaConsolaPy.list"
+Finished building: PruebaConsolaPy.list
+ 
+11:25:28 **** Incremental Build of configuration Debug for project PruebaConsolaPy ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/main.d ./App/Src/main.o ./App/Src/main.su
+rm -rf PruebaConsolaPy.elf PruebaConsolaPy.list PruebaConsolaPy.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/App/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/App/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/App/Inc" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/PruebaConsolaPy/Drivers/Core/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/main.d" -MT"App/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/main.o"
+arm-none-eabi-gcc -o "PruebaConsolaPy.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"E:\GitHub\Robotica_dacardenasj\PruebaConsolaPy\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PruebaConsolaPy.map" -Wl,--gc-sections -static -L"E:\GitHub\Robotica_dacardenasj/CMSIS-PeripheralDrivers/Debug" -L"E:\GitHub\Robotica_dacardenasj/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: PruebaConsolaPy.elf
+ 
+arm-none-eabi-size   PruebaConsolaPy.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35784	    476	   2120	  38380	   95ec	PruebaConsolaPy.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  PruebaConsolaPy.elf  > "PruebaConsolaPy.list"
+Finished building: PruebaConsolaPy.list
+ 
+11:30:45 **** Incremental Build of configuration Debug for project AStar ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/A_Start_Pathfinding.d ./App/Src/A_Start_Pathfinding.o ./App/Src/A_Start_Pathfinding.su ./App/Src/Single_Cell.d ./App/Src/Single_Cell.o ./App/Src/Single_Cell.su
+rm -rf AStar.elf AStar.list AStar.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/A_Start_Pathfinding.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/A_Start_Pathfinding.d" -MT"App/Src/A_Start_Pathfinding.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/A_Start_Pathfinding.o"
+arm-none-eabi-gcc "../App/Src/Single_Cell.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/Single_Cell.d" -MT"App/Src/Single_Cell.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/Single_Cell.o"
+arm-none-eabi-gcc -o "AStar.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"E:\GitHub\Robotica_dacardenasj\AStar\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AStar.map" -Wl,--gc-sections -static -L"E:\GitHub\Robotica_dacardenasj/CMSIS-PeripheralDrivers/Debug" -L"E:\GitHub\Robotica_dacardenasj/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AStar.elf
+ 
+arm-none-eabi-size   AStar.elf 
+   text	   data	    bss	    dec	    hex	filename
+  37012	    476	   5392	  42880	   a780	AStar.elf
+Finished building: default.size.stdout
+ 
+arm-none-eabi-objdump -h -S  AStar.elf  > "AStar.list"
+Finished building: AStar.list
+ 
+11:56:30 **** Incremental Build of configuration Debug for project AStar ****
+make clean all 
+rm -rf ./Core/Startup/startup_stm32f411retx.d ./Core/Startup/startup_stm32f411retx.o
+rm -rf ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su
+rm -rf ./App/Src/A_Start_Pathfinding.d ./App/Src/A_Start_Pathfinding.o ./App/Src/A_Start_Pathfinding.su ./App/Src/Single_Cell.d ./App/Src/Single_Cell.o ./App/Src/Single_Cell.su
+rm -rf AStar.elf AStar.list AStar.map default.size.stdout
+ 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../App/Src/A_Start_Pathfinding.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/A_Start_Pathfinding.d" -MT"App/Src/A_Start_Pathfinding.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/A_Start_Pathfinding.o"
+arm-none-eabi-gcc "../App/Src/Single_Cell.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411xE -c -I"E:/GitHub/Robotica_dacardenasj/CMSIS-PeripheralDrivers/Inc" -I"E:/GitHub/Robotica_dacardenasj/CMSIS-Full/Inc" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Device/ST/STM32F4xx/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/Drivers/Core/Include" -I"E:/GitHub/Robotica_dacardenasj/AStar/App/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Src/Single_Cell.d" -MT"App/Src/Single_Cell.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/Single_Cell.o"
+arm-none-eabi-gcc -o "AStar.elf" @"objects.list"  -lCMSIS-PeripheralDrivers -lCMSIS-Full -mcpu=cortex-m4 -T"E:\GitHub\Robotica_dacardenasj\AStar\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AStar.map" -Wl,--gc-sections -static -L"E:\GitHub\Robotica_dacardenasj/CMSIS-PeripheralDrivers/Debug" -L"E:\GitHub\Robotica_dacardenasj/CMSIS-Full/Debug" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AStar.elf
+ 
+arm-none-eabi-size   AStar.elf 
+   text	   data	    bss	    dec	    hex	filename
+  37076	    476	   5392	  42944	   a7c0	AStar.elf
 Finished building: default.size.stdout
  
 arm-none-eabi-objdump -h -S  AStar.elf  > "AStar.list"

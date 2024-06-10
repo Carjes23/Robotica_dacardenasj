@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="exit"/>
+		<item key="selection" value="MAP_GRID_ROWS"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="MAP_GRID_ROWS"/>
+			<item value="MAP_GRID_COLS"/>
+			<item value="close"/>
+			<item value="baudra"/>
+			<item value="19200"/>
+			<item value="19600"/>
 			<item value="exit"/>
 			<item value="multiples"/>
 			<item value="numCols"/>
@@ -17,14 +23,10 @@
 			<item value="rxDataU1"/>
 			<item value="USART2Rx_Callback"/>
 			<item value="usart2"/>
-			<item value="gyroZ"/>
-			<item value="pull"/>
-			<item value="pull up"/>
-			<item value="stop"/>
-			<item value="thetaG"/>
-			<item value="integral"/>
 		</list>
 		<list key="replacehistory">
+			<item value="grid_rows"/>
+			<item value="grid_cols"/>
 			<item value="rxData"/>
 			<item value="stop"/>
 			<item value="thetaObjective"/>
@@ -38,13 +40,11 @@
 			<item value="rxDataU1"/>
 			<item value="counterYellowT"/>
 			<item value="counterBlueCounter"/>
-			<item value="counterBlueCounterL"/>
-			<item value="printcounterBlue"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1119"/>
-		<item key="DIALOG_Y_ORIGIN" value="397"/>
+		<item key="DIALOG_X_ORIGIN" value="1486"/>
+		<item key="DIALOG_Y_ORIGIN" value="310"/>
 		<item key="DIALOG_WIDTH" value="414"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
